@@ -1,9 +1,10 @@
 import styles from '@css/map.module.css';
-import MapComponent from "./MapApi";
+import MapComponent from "@pages/MapApi";
 import light_paw from '@assets/logos/light_paw.svg';
 import search_icon from '@assets/icons/search.svg';
 import dropdown from '@assets/icons/dropdown.svg';
 import filters from '@assets/icons/filters.svg';
+import trafalgar from '@data/trafalgar.json';
 
 function Map() {
     return (
@@ -34,7 +35,21 @@ function Map() {
                     <div id={styles.filters_container} className={styles.option}>
                         <div><img src={filters} alt="filters icon"/> Filters</div>
                     </div>
-                    
+                </div>
+                <div id={styles.landmarks}>
+                    {/* {Object.entries(trafalgar.landmarks).map(([key, landmark]) => {
+                        const totalLocations = landmark.spots.length;
+                        const locationsWithLinks = landmark.spots.filter(spot => spot.link).length;
+                        return (
+                            <div key={key} className={styles.landmark}>
+                                <div className={styles.landmark_icon}>{landmark.emoji}</div>
+                                <div className={styles.landmark_info}>
+                                    <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
+                                    <p>{totalLocations} locations, {locationsWithLinks} links</p>
+                                </div>
+                            </div>
+                        );
+                    })} */}
                 </div>
             </nav>
             <div id={styles.map_wrapper}>
