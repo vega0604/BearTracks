@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
+import SunCalc from 'suncalc';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapComponent = () => {
@@ -7,19 +8,61 @@ const MapComponent = () => {
   const mapRef = useRef();
   const [activeCategories, setActiveCategories] = useState(['Food', 'Parking', 'Bus Stop', 'Recreation']);
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
+  const [isDaytime, setIsDaytime] = useState(true);
+
+  // Function to check if current time is between sunrise and sunset
+  const checkDayTime = () => {
+    const times = SunCalc.getTimes(new Date(), 43.468, -79.700); // Sheridan coordinates
+    const now = new Date();
+    return now > times.sunrise && now < times.sunset;
+  };
+
+  // Function to update map style based on time
+  const updateMapStyle = () => {
+    if (!mapRef.current) return;
+
+    const isDaylight = checkDayTime();
+    setIsDaytime(isDaylight);
+
+    // Switch between light and dark styles
+    const newStyle = isDaylight
+      ? 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0' // your day style
+      : 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c'; // create and add your dark style ID
+
+    mapRef.current.setStyle(newStyle);
+  };
 
   useEffect(() => {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYnJhbmR5bnN1ZGppdG8iLCJhIjoiY202MmNxOXJhMHhhaDJqb2xxeHJ6cmlidiJ9.VRIXyfZdLePxoi-H07HSnQ';
 
+    const initialIsDaytime = checkDayTime();
+    const initialStyle = initialIsDaytime
+      ? 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0'
+      : 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c';
+
+
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0',
+      style: initialStyle,
       center: [-79.700, 43.468],
       zoom: 17,
       pitch: 40,
       maxZoom: 19, // Add this to limit zoom
       minZoom: 14
     });
+
+    // Set up time checking interval
+    const timeCheckInterval = setInterval(() => {
+      updateMapStyle();
+    }, 60000); // Check every minute
+
+    // Add debug info for sunrise/sunset times
+    const times = SunCalc.getTimes(new Date(), 43.468, -79.700);
+    console.log('Sunrise:', times.sunrise);
+    console.log('Sunset:', times.sunset);
+    console.log('Current time:', new Date());
+    console.log('Is daytime:', checkDayTime());
+
 
     // Wait for style to load before setting up interactions
     mapRef.current.on('style.load', () => {
@@ -102,6 +145,7 @@ const MapComponent = () => {
       if (mapRef.current) {
         mapRef.current.remove();
       }
+      clearInterval(timeCheckInterval);
     };
   }, []);
 
@@ -135,8 +179,38 @@ const MapComponent = () => {
     });
   };
 
+  const toggleDayNight = () => {
+    if (mapRef.current) {
+      const newStyle = isDaytime
+        ? 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c'
+        : 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0';
+      
+      mapRef.current.setStyle(newStyle);
+      setIsDaytime(!isDaytime);
+    }
+  };
+
   return (
     <div>
+
+      {/* Add toggle button for testing */}
+      {/* <button
+        onClick={toggleDayNight}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          right: '20px',
+          zIndex: 1,
+          padding: '8px 16px',
+          backgroundColor: 'white',
+          border: '1px solid #ccc',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}
+      >
+        Toggle Day/Night
+      </button> */}
+
       {/* Category Filter Controls */}
       <div style={{
         position: 'absolute',
