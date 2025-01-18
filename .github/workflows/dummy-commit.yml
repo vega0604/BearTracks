@@ -1,0 +1,37 @@
+name: Dummy commit if someone else than sebasvega4604@gmail.com
+
+on:
+  push:
+    branches:
+      - main # Replace with your branch
+
+jobs:
+  enforce-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get commit email
+        id: get_email
+        run: |
+          email=$(git log -1 --pretty=format:'%ae')
+          echo "Commit email: $email"
+          echo "email=$email" >> $GITHUB_ENV
+
+      - name: Check email and perform dummy commit if necessary
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EMAIL: ${{ env.email }}
+        run: |
+          if [ "${{ env.EMAIL }}" != "sebasvega4604@gmail.com" ]; then
+            echo "Email does not match. Performing dummy commit."
+            git config user.name "Sebastian Vega"
+            git config user.email "sebasvega4604@gmail.com"
+            echo "Dummy commit at $(date)" > dummyfile.txt
+            git add dummyfile.txt
+            git commit -m "Dummy commit to deploy"
+            git push
+          else
+            echo "Email matches. No action needed."
+          fi
