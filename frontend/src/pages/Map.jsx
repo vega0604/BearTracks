@@ -1,3 +1,6 @@
+import React from 'react';
+import MapComponent from "./MapApi";
+import styles from './Map.module.css';
 
 function Map() {
     return (
@@ -9,6 +12,7 @@ function Map() {
             </div>
             <div className={styles.map_container}>
                 {/* PUT MAP COMPONENT HERE! */}
+                <MapComponent/>
             </div>
         </div>
     );
