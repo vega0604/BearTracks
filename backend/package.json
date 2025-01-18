@@ -4,11 +4,23 @@
   "description": "BearTracks backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./api/index.js"
   },
   "keywords": [
     "API"
   ],
   "author": "Sebastian Vega, Aleks Bursac, Anya Popova, Brandyn Sudjito",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "module-alias": "^2.2.3"
+  },
+  "_moduleAliases": {
+    "@services": "api/services",
+    "@routers": "api/routers",
+    "@models": "api/models"
+  }
 }
