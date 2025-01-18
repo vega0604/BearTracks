@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./api",
+        "paths": {
+            "@models/*": ["./models/*"],
+            "@routers/*": ["./routers/*"],
+            "@services/*": ["./services/*"]
+        }
+    }
+}

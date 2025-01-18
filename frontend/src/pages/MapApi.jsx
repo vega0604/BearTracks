@@ -33,7 +33,7 @@ const MapComponent = () => {
   };
 
   useEffect(() => {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYnJhbmR5bnN1ZGppdG8iLCJhIjoiY202MmNxOXJhMHhhaDJqb2xxeHJ6cmlidiJ9.VRIXyfZdLePxoi-H07HSnQ';
+    mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_KEY;
 
     const initialIsDaytime = checkDayTime();
     const initialStyle = initialIsDaytime
