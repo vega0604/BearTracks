@@ -1,9 +1,9 @@
 // app.js
-require("module-alias/register");
+// require("module-alias/register");
 
 const express = require('express');
 const cors = require('cors');
-const gemini_router = require('@routers/GeminiRoutes');
+const gemini_router = require('./routers/GeminiRoutes');
 require('dotenv').config();
 
 const app = express();
