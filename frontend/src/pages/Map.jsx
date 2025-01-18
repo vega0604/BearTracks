@@ -2,6 +2,8 @@ import styles from '@css/map.module.css';
 import MapComponent from "./MapApi";
 import light_paw from '@assets/logos/light_paw.svg';
 import search_icon from '@assets/icons/search.svg';
+import dropdown from '@assets/icons/dropdown.svg';
+import filters from '@assets/icons/filters.svg';
 
 function Map() {
     return (
@@ -19,6 +21,20 @@ function Map() {
                 <div id={styles.search_bar}>
                     <input placeholder="Search..."/>
                     <img src={search_icon} alt="Search icon"/>
+                </div>
+                <div id={styles.options}>
+                    <div className={styles.option}>
+                        <label>Landmarks:</label>
+                        <div>0 selected <img src={dropdown}/></div>
+                    </div>
+                    <div className={styles.option}>
+                        <label>Sort by:</label>
+                        <div>Name <img src={dropdown}/></div>
+                    </div>
+                    <div id={styles.filters_container} className={styles.option}>
+                        <div><img src={filters} alt="filters icon"/> Filters</div>
+                    </div>
+                    
                 </div>
             </nav>
             <div id={styles.map_wrapper}>

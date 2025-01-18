@@ -86,8 +86,69 @@
 
 #search_bar img {
   padding-inline: 1.5rem;
+  cursor: pointer;
 }
 
+#search_bar img:hover {
+  opacity: .75;
+}
+
+#options {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+#options .option {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  cursor: pointer;
+}
+
+#options .option label {
+  color: var(--light_75);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+#options .option div {
+  display: flex;
+  width: fit-content;
+  height: 3.25rem;
+  gap: 1.25rem;
+  padding: 0.8125rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9375rem;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--light_75);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  transition: opacity .1s;
+}
+
+#options .option div:hover {
+  opacity: .75;
+}
+
+.option div img {
+  opacity: .75;
+}
+
+#options #filters_container div {
+  gap: .5rem;
+}
+
+#options #filters_container div img {
+  opacity: 1;
+}
 
 
 /* || MAP */
