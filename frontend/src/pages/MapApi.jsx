@@ -1,41 +1,49 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapComponent = () => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
+  const [activeCategories, setActiveCategories] = useState(['Food', 'Parking', 'Bus Stop', 'Recreation']);
+  const [isStyleLoaded, setIsStyleLoaded] = useState(false);
 
   useEffect(() => {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYnJhbmR5bnN1ZGppdG8iLCJhIjoiY202MmNxOXJhMHhhaDJqb2xxeHJ6cmlidiJ9.VRIXyfZdLePxoi-H07HSnQ';
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/brandynsudjito/cm62jl44e004t01s666bjbw6e',
+      style: 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0',
       center: [-79.700, 43.468],
       zoom: 17,
-      pitch: 40
+      pitch: 40,
+      maxZoom: 19, // Add this to limit zoom
+      minZoom: 14
     });
 
-    // Wait for map to load
-    mapRef.current.on('load', () => {
-      // Log layers for debugging
-      const style = mapRef.current.getStyle();
-      console.log('Loaded layers:', style.layers.map(layer => layer.id));
+    // Wait for style to load before setting up interactions
+    mapRef.current.on('style.load', () => {
+      console.log('Style loaded');
+      setIsStyleLoaded(true);
+      
+      // Initial filter setup
+      updateLayerFilter();
 
-      // Add click event handler
+      // Log available layers
+      const style = mapRef.current.getStyle();
+      console.log('Available layers:', style.layers.map(layer => layer.id));
+    });
+
+    mapRef.current.on('load', () => {
+      // Add click handler
       mapRef.current.on('click', (event) => {
         const features = mapRef.current.queryRenderedFeatures(event.point, {
           layers: ['sheridan-traf']
         });
       
-        if (!features.length) {
-          return;
-        }
+        if (!features.length) return;
       
         const feature = features[0];
-      
-        // Create popup content with all available properties
         const popupContent = `
           <div style="font-family: Arial, sans-serif; padding: 10px;">
             <h3 style="color: #000000; margin: 0 0 8px 0; font-size: 16px;">
@@ -78,7 +86,6 @@ const MapComponent = () => {
           </div>
         `;
       
-        // Create and show popup
         new mapboxgl.Popup({
           offset: [0, -15],
           maxWidth: '300px',
@@ -88,24 +95,9 @@ const MapComponent = () => {
           .setHTML(popupContent)
           .addTo(mapRef.current);
       });
-
-      // Optional: Change cursor to pointer when hovering over POIs
-      mapRef.current.on('mouseenter', 'your-points-layer', () => {
-        mapRef.current.getCanvas().style.cursor = 'pointer';
-      });
-
-      mapRef.current.on('mouseleave', 'your-points-layer', () => {
-        mapRef.current.getCanvas().style.cursor = '';
-      });
+      
     });
 
-    // Debug: Log when the map style has loaded
-    mapRef.current.on('style.load', () => {
-      console.log('Style loaded');
-      const style = mapRef.current.getStyle();
-      });
-
-    // Clean up on unmount
     return () => {
       if (mapRef.current) {
         mapRef.current.remove();
@@ -113,16 +105,114 @@ const MapComponent = () => {
     };
   }, []);
 
+  // Update filter when active categories change
+  useEffect(() => {
+    if (isStyleLoaded) {
+      updateLayerFilter();
+    }
+  }, [activeCategories, isStyleLoaded]);
+
+  const updateLayerFilter = () => {
+    if (!mapRef.current || !isStyleLoaded) return;
+    
+    try {
+      mapRef.current.setFilter('sheridan-traf', [
+        'in',
+        ['get', 'category'],
+        ['literal', activeCategories]
+      ]);
+    } catch (error) {
+      console.error('Error setting filter:', error);
+    }
+  };
+
+  const toggleCategory = (category) => {
+    setActiveCategories(prev => {
+      if (prev.includes(category)) {
+        return prev.filter(cat => cat !== category);
+      }
+      return [...prev, category];
+    });
+  };
+
   return (
-    <div
-      ref={mapContainerRef}
-      style={{
+    <div>
+      {/* Category Filter Controls */}
+      <div style={{
         position: 'absolute',
-        top: 0,
-        bottom: 0,
-        width: '100%',
-      }}
-    />
+        top: '20px',
+        left: '20px',
+        zIndex: 1,
+        background: 'white',
+        padding: '15px',
+        borderRadius: '8px',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+      }}>
+        <h3 style={{ margin: '0 0 10px 0', fontSize: '16px' }}>Filter Categories</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          {['Food', 'Parking', 'Bus Stop', 'Recreation'].map(category => (
+            <label
+              key={category}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'pointer',
+                userSelect: 'none'
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={activeCategories.includes(category)}
+                onChange={() => toggleCategory(category)}
+                style={{ marginRight: '8px' }}
+              />
+              {category}
+            </label>
+          ))}
+        </div>
+        <div style={{ 
+          marginTop: '12px',
+          display: 'flex',
+          gap: '8px'
+        }}>
+          <button
+            onClick={() => setActiveCategories(['Food', 'Parking', 'Bus Stop', 'Recreation'])}
+            style={{
+              padding: '6px 12px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              background: '#fff',
+              cursor: 'pointer'
+            }}
+          >
+            Select All
+          </button>
+          <button
+            onClick={() => setActiveCategories([])}
+            style={{
+              padding: '6px 12px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              background: '#fff',
+              cursor: 'pointer'
+            }}
+          >
+            Clear All
+          </button>
+        </div>
+      </div>
+
+      {/* Map Container */}
+      <div
+        ref={mapContainerRef}
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          width: '100%',
+        }}
+      />
+    </div>
   );
 };
 
