@@ -135,7 +135,7 @@
                         "title": "Bruins' Den (Cafeteria)",
                         "location": "Inside the Student Centre (B-Wing)",
                         "coordinates": [
-                            43.467964, 
+                            43.467964,
                             -79.700716
                         ],
                         "description": "Cafeteria with a variety of options, including Harvey's, Subway, Pizza Pizza, Thai Express, and Tim Hortons.",
@@ -147,7 +147,7 @@
                         "title": "Tim Hortons",
                         "location": "Inside the Student Centre (B-Wing)",
                         "coordinates": [
-                            43.468444, 
+                            43.468444,
                             -79.700584
                         ],
                         "description": "Coffee, donuts, and other snacks.",
@@ -159,7 +159,7 @@
                         "title": "The Marquee",
                         "location": "Near the main entrance (B-Wing)",
                         "coordinates": [
-                            43.469307, 
+                            43.469307,
                             -79.699595
                         ],
                         "description": "Trafalgar's on-campus pub, run by the Sheridan Student Union.",
@@ -231,7 +231,7 @@
                         "title": "Coffee Loft",
                         "location": "Upstairs from The Marquee",
                         "coordinates": [
-                            43.469307, 
+                            43.469307,
                             -79.699595
                         ],
                         "description": "Cozy nook for coffee and snacks.",
