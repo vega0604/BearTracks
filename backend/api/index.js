@@ -17,10 +17,8 @@ app.use('/api', gemini_router);
 const PORT = process.env.PORT || 3000;
 const ENVIRONMENT = process.env.ENVIRONMENT || 'dev';
 
-if (ENVIRONMENT == 'dev'){
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-}
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 module.exports = app;
