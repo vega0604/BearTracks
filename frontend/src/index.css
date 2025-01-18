@@ -33,6 +33,7 @@ body {
   --secondary: #fbca46;
   --secondary_50: #fbca467f;
   --secondary_25: #fbca463f;
+  --accent: #054C45;
   --dark: #1A1A1A;
   --dark_80: #1A1A1A80;
   --dark_75: #1A1A1A75;
@@ -47,7 +48,7 @@ body {
   --light_25: #f5f5f53f;
   --light_10: #f5f5f51a;
   --light_5: #f5f5f50d;
-  
+
   --inline_padding: 1rem;
   --max_width: 1512px;
   --min_width: 25rem;
