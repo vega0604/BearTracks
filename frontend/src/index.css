@@ -1,68 +1,60 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "Macondo";
+  src: url("assets/fonts/Macondo.ttf") format("truetype");
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+@font-face {
+  font-family: "Geist";
+  src: url("assets/fonts/Geist.ttf") format("truetype");
 }
 
+html,
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background-color: var(--dark);
+  -webkit-font-smoothing: antialiased !important;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+* {
+  font-family: "Geist", sans-serif;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+*:focus-visible {
+  outline: 2px solid var(--primary);
 }
 
-@media (prefers-color-scheme: light) {
+:root {
+  --primary: #C6FCFF;
+  --primary_75: #C6FCFF75;
+  --primary_50: #C6FCFF7f;
+  --primary_25: #C6FCFF3f;
+  --secondary: #fbca46;
+  --secondary_50: #fbca467f;
+  --secondary_25: #fbca463f;
+  --dark: #1A1A1A;
+  --dark_80: #1A1A1A80;
+  --dark_75: #1A1A1A75;
+  --dark_50: #1A1A1A7f;
+  --dark_25: #1A1A1A3f;
+  --dark_10: #1A1A1A1a;
+  --dark_5: #1A1A1A0d;
+  --light: #f5f5f5;
+  --light_80: #f5f5f580;
+  --light_75: #f5f5f575;
+  --light_50: #f5f5f57f;
+  --light_25: #f5f5f53f;
+  --light_10: #f5f5f51a;
+  --light_5: #f5f5f50d;
+  
+  --inline_padding: 1rem;
+  --max_width: 1512px;
+  --min_width: 25rem;
+}
+
+@media (max-width: 768px) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+      --inline_padding: 0.5rem;
   }
 }
