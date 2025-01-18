@@ -1,5 +1,5 @@
 
-const baseURI = `${import.meta.env.API_URL}/api`;
+const baseURI = `${import.meta.env.VITE_API_URL}/api`;
 
 export async function askBruno(question){
     const params = new URLSearchParams({
