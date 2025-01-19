@@ -261,13 +261,9 @@
 }
 
 .expanded_landmark {
-  color: var(--light);
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
   display: flex;
-  padding: 1.25rem 0rem;
+  justify-content: space-between;
+  padding: 1.625rem 0rem;
   align-items: flex-end;
   gap: 0.625rem;
   align-self: stretch;
@@ -287,13 +283,23 @@
   }
 }
 
-.fade-in-up {
-  animation: fadeInUp 0.5s ease-in-out;
+.expanded_landmark p {
+  margin: 0;
+  color: var(--light);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .expanded_landmark span {
   color: var(--light_75);
   font-size: 1.125rem;
+}
+
+.expanded_landmark img {
+  cursor: pointer;
+  z-index: 5;
 }
 
 /* || MAP */

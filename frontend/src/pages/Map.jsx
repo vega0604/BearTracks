@@ -5,6 +5,7 @@ import light_paw from '@assets/logos/light_paw.svg';
 import search_icon from '@assets/icons/search.svg';
 import dropdown from '@assets/icons/dropdown.svg';
 import filters from '@assets/icons/filters.svg';
+import new_tab_arrow from '@assets/icons/new_tab_arrow.svg';
 import trafalgar from '@data/trafalgar.json';
 
 const LandmarkCategory = ({ category, data, onCategoryClick }) => {
@@ -41,9 +42,15 @@ const LandmarkCategory = ({ category, data, onCategoryClick }) => {
                         .slice()
                         .sort((a, b) => a.title.localeCompare(b.title))
                         .map((spot, index) => (
-                            <p className={styles.expanded_landmark} key={index}>
-                                {spot.title} <span>· {spot.location}</span>
-                            </p>
+                            <div className={styles.expanded_landmark} key={index}>
+                                <p>{spot.title} <span>· {spot.location}</span></p>
+                                {spot.link && (
+                                    console.log(spot.link),
+                                    <a href={spot.link} target="_blank" rel="noopener noreferrer">
+                                        <img src={new_tab_arrow} alt="Open in new tab" />
+                                    </a>
+                                )}
+                            </div>
                         ))}
                 </div>
             )}
