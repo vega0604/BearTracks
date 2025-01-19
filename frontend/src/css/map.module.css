@@ -150,10 +150,6 @@
   opacity: .75;
 }
 
-#options #filters_container div {
-  gap: .5rem;
-}
-
 #options #filters_container div img {
   opacity: 1;
 }

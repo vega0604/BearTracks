@@ -11,7 +11,7 @@
     
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 5px;
 }
@@ -22,7 +22,7 @@
 }
 
 #chat_container[data-opened=true] #message_history {
-    min-height: 5rem;
+    min-height: 10rem;
 }
 
 #chat_container[data-opened=false] {
@@ -48,6 +48,8 @@
     width: 100%;
     height: 100%;
     overflow: auto;
+    max-height: 0rem;
+    transition: max-height 10s ease-in;
 }
 
 .message {
@@ -56,16 +58,17 @@
 
     padding: 5px 10px;
     font-size: 14px;
-    border-radius: 5px;
     max-width: 14rem;
 }
 
 .message.model {
+    border-radius: 5px 5px 5px 0;
     background: #7D7C7C;
     align-self: flex-start;
 }
 
 .message.user {
+    border-radius: 5px 5px 0 5px;
     background: #7D7C7C88; 
     align-self: flex-end;
 }

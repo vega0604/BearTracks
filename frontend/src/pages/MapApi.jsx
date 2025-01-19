@@ -5,11 +5,9 @@ import SunCalc from 'suncalc';
 import submit_img from '@assets/icons/submit.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { askBruno } from '@requests/AskBruno';
-
-const MapComponent = () => {
+const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
-  const [activeCategories, setActiveCategories] = useState(['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators']);
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
   const [isDaytime, setIsDaytime] = useState(true);
 
@@ -287,15 +285,6 @@ const MapComponent = () => {
     }
   };
 
-  const toggleCategory = (category) => {
-    setActiveCategories(prev => {
-      if (prev.includes(category)) {
-        return prev.filter(cat => cat !== category);
-      }
-      return [...prev, category];
-    });
-  };
-
   // const toggleDayNight = () => {
   //   if (mapRef.current) {
   //     const newStyle = isDaytime
@@ -361,70 +350,8 @@ const MapComponent = () => {
       </button> */}
 
       {/* Category Filter Controls */}
-      <div style={{
-        position: 'absolute',
-        top: '20px',
-        left: '20px',
-        zIndex: 1,
-        background: 'white',
-        padding: '15px',
-        borderRadius: '8px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-      }}>
-        <h3 style={{ margin: '0 0 10px 0', fontSize: '16px' }}>Filter Categories</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators'].map(category => (
-            <label
-              key={category}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                cursor: 'pointer',
-                userSelect: 'none'
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={activeCategories.includes(category)}
-                onChange={() => toggleCategory(category)}
-                style={{ marginRight: '8px' }}
-              />
-              {category}
-            </label>
-          ))}
-        </div>
-        <div style={{ 
-          marginTop: '12px',
-          display: 'flex',
-          gap: '8px'
-        }}>
-          <button
-            onClick={() => setActiveCategories(['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators'])}
-            style={{
-              padding: '6px 12px',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              background: '#fff',
-              cursor: 'pointer'
-            }}
-          >
-            Select All
-          </button>
-          <button
-            onClick={() => setActiveCategories([])}
-            style={{
-              padding: '6px 12px',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              background: '#fff',
-              cursor: 'pointer'
-            }}
-          >
-            Clear All
-          </button>
-        </div>
-      </div>
-        <div id={styles.chat_container} data-opened={chatOpened} onFocus={() => setChatOpened(true)}>
+      
+        <div id={styles.chat_container} tabIndex={1} data-opened={chatOpened} onClick={(e) => e.target.focus()} onFocus={() => setChatOpened(true)} onBlur={() => setChatOpened(false)}>
           <h3>Ask Bruno</h3>
           <ul id={styles.message_history} ref={messageHistoryRef}>
             {messageHistory.map((item, i) => {
@@ -436,7 +363,7 @@ const MapComponent = () => {
           </ul>
           <div id={styles.form_container}>
             <form onSubmit={handleSubmit} id={styles.chat_form}>
-              <input type="text" name="question" placeholder='ask a question...' />
+              <input type="text" name="question" placeholder='ask a question...' autoComplete='off'/>
               <button type="submit"><img src={submit_img} alt="submit" /></button>
             </form>
           </div>

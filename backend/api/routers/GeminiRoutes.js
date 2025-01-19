@@ -14,11 +14,10 @@ const primer_history = [
         parts: [{
             text: `You will be asked multiple questions about Sheridan College Campuses.
             Most of these questions will be for directions and locations of popular Sheridan College Campus landmarks, or popular landmarks within 3km of a Sheridan College Campus.
-            These questions could be with regards to either the Trafalgar Campus, or the HMC Campus. 
+            These questions could be with regards to either the Trafalgar Campus.
             Your replies should be in plain text without any format specifiers or structured data formats like JSON. 
             Do not include any tags or special characters that denote formatting. 
-            Just provide the answer in simple text.
-            Your response should align with the following data: `
+            Just provide the answer in simple text.`
         }]
     }
 ];

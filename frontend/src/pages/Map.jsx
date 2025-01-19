@@ -8,6 +8,7 @@ import dropdown from '@assets/icons/dropdown.svg';
 import filters from '@assets/icons/filters.svg';
 import new_tab_arrow from '@assets/icons/new_tab_arrow.svg';
 import trafalgar from '@data/trafalgar.json';
+import {Popover, Button} from "antd";
 
 const LandmarkCategory = ({ category, data, onCategoryClick }) => {
     const numSpots = data.spots.length;
@@ -106,6 +107,74 @@ function Map() {
         document.body.setAttribute("data-theme", theme);
     }, [theme]);
 
+    const categories = ['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators'];
+    const [activeCategories, setActiveCategories] = useState(categories);
+
+    const toggleCategory = (category) => {
+        setActiveCategories(prev => {
+          if (prev.includes(category)) {
+            return prev.filter(cat => cat !== category);
+          }
+          return [...prev, category];
+        });
+      };
+
+    const content = (
+        <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {categories.map(category => (
+                <label
+                  key={category}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    userSelect: 'none'
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={activeCategories.includes(category)}
+                    onChange={() => toggleCategory(category)}
+                    style={{ marginRight: '8px' }}
+                  />
+                  {category}
+                </label>
+              ))}
+            </div>
+            <div style={{ 
+              marginTop: '12px',
+              display: 'flex',
+              gap: '8px'
+            }}>
+              <button
+                onClick={() => setActiveCategories(categories)}
+                style={{
+                  padding: '6px 12px',
+                  border: '1px solid #ccc',
+                  borderRadius: '4px',
+                  background: '#fff',
+                  cursor: 'pointer'
+                }}
+              >
+                Select All
+              </button>
+              <button
+                onClick={() => setActiveCategories([])}
+                style={{
+                  padding: '6px 12px',
+                  border: '1px solid #ccc',
+                  borderRadius: '4px',
+                  background: '#fff',
+                  cursor: 'pointer'
+                }}
+              >
+                Clear All
+              </button>
+            </div>
+          </div>
+    );
+
     return (
         <section id={styles.map_section} data-theme={theme}>
             <nav id={styles.nav_container}>
@@ -125,7 +194,9 @@ function Map() {
                 <div id={styles.options}>
                     <div className={styles.option}>
                         <label>Landmarks:</label>
-                        <div>0 selected <img src={dropdown} /></div>
+                        <Popover content={content} title="Filter Categories" trigger="click">
+                            <Button className={styles.option}>Selected</Button>
+                        </Popover>
                     </div>
                     <div className={styles.option}>
                         <label>Sort by:</label>
@@ -142,7 +213,7 @@ function Map() {
             </nav>
             <div id={styles.map_wrapper}>
                 <div id={styles.map_container}>
-                    <MapComponent />
+                    <MapComponent activeCategories={activeCategories} setActiveCategories={setActiveCategories} categories={categories} />
                 </div>
             </div>
         </section>

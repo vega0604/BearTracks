@@ -17,6 +17,15 @@ body {
   -webkit-font-smoothing: antialiased !important;
 }
 
+.ant-btn div {
+  display: none !important;
+}
+
+.ant-btn {
+  all: unset;
+}
+
+
 * {
   font-family: "Geist", sans-serif;
 }
