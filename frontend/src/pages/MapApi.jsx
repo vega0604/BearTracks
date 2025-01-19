@@ -1,13 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
+import styles from '@css/brunochat.module.css';
 import mapboxgl from 'mapbox-gl';
 import SunCalc from 'suncalc';
+import submit_img from '@assets/icons/submit.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { askBruno } from '@requests/AskBruno';
+import LoadingScreen from './LoadingScreen';
+
 
 const MapComponent = () => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const [activeCategories, setActiveCategories] = useState(['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators']);
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
+  const [isMapLoaded, setIsMapLoaded] = useState(false); 
   const [isDaytime, setIsDaytime] = useState(true);
 
   // Function to check if current time is between sunrise and sunset
@@ -98,6 +104,9 @@ const MapComponent = () => {
               'fill-extrusion-opacity': 0.7  // Use a simple number for opacity
             }
           });
+          setIsMapLoaded(true);
+          setLoadingScreen(false);
+
 
           // Variable to store the ID of the currently clicked feature
           let clickedId = null;
@@ -227,6 +236,12 @@ const MapComponent = () => {
       
     });
 
+    const setLoadingScreen = (show) => {
+      const loadingScreen = document.querySelector('.loading-screen');
+      if (loadingScreen) {
+        loadingScreen.style.display = show ? 'flex' : 'none';
+      }
+    };
     return () => {
       if (mapRef.current) {
         mapRef.current.remove();
@@ -275,9 +290,41 @@ const MapComponent = () => {
   //   }
   // };
 
+  const [messageHistory, setMessageHistory] = useState([
+    {
+      role: 'model',
+      message: 'Ask me anything about Sheridan!'
+    }
+  ])
+
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    const question = e.target.question.value;
+    let messages = messageHistory;
+    messages.push({role: 'user', message: question})
+    setMessageHistory(messages);
+    e.target.reset();
+    setAwaitingResponse(true);
+    const response = await askBruno(question);
+    messages.push({role: 'model', message: response.response});
+    setMessageHistory(messages);
+    setAwaitingResponse(false);
+
+  }
+
+  const [chatOpened, setChatOpened] = useState(false);
+  const messageHistoryRef = useRef();
+
+  useEffect(() => {
+    if (messageHistoryRef.current){
+      messageHistoryRef.current.scrollTop = messageHistoryRef.current.scrollHeight;
+    }
+  }, [messageHistory])
   return (
     <div>
-
+      {isMapLoaded === false && <LoadingScreen />}
       {/* Add toggle button for testing */}
       {/* <button
         onClick={toggleDayNight}
@@ -360,6 +407,23 @@ const MapComponent = () => {
           </button>
         </div>
       </div>
+        <div id={styles.chat_container} data-opened={chatOpened} onFocus={() => setChatOpened(true)}>
+          <h3>Ask Bruno</h3>
+          <ul id={styles.message_history} ref={messageHistoryRef}>
+            {messageHistory.map((item, i) => {
+              return (
+                <li key={i} className={`${styles.message} ${item.role == 'model' ? styles.model: styles.user}`}>{item.message}</li>
+              );
+            })}
+            {/* {awaitingResponse && <div>...</div>} */}
+          </ul>
+          <div id={styles.form_container}>
+            <form onSubmit={handleSubmit} id={styles.chat_form}>
+              <input type="text" name="question" placeholder='ask a question...' />
+              <button type="submit"><img src={submit_img} alt="submit" /></button>
+            </form>
+          </div>
+        </div>
 
       {/* Map Container */}
       <div
@@ -371,6 +435,7 @@ const MapComponent = () => {
           width: '100%',
         }}
       />
+
     </div>
   );
 };
