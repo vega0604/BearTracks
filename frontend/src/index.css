@@ -22,7 +22,8 @@ body {
 }
 
 *:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--secondary);
+  border-radius: 8px;
 }
 
 :root {
@@ -42,6 +43,7 @@ body {
   --dark_25: rgb(26, 26, 26, 0.25);
   --dark_10: rgb(26, 26, 26, 0.1);
   --dark_5: rgb(26, 26, 26, 0.05);
+  --dark_0: rgb(26, 26, 26, 0);
   --light: #f5f5f5;
   --light_80: rgb(245, 245, 245, 0.8);
   --light_75: rgb(245, 245, 245, 0.75);
@@ -53,9 +55,43 @@ body {
   --border: #595959;
   --input_bg: #232323;
 
+  --top-gradient: linear-gradient(180deg, #1a1a1a 0%, #1a1a1a00 100%) !important;
+  --bottom-gradient: linear-gradient(0deg, #1a1a1a 0%, #1a1a1a00 100%) !important;
+
   --inline_padding: 2rem;
   --max_width: 1512px;
   --min_width: 25rem;
+}
+
+[data-theme='light'] {
+  --primary: #013B6D;
+  --secondary: #FFD700;
+
+  --dark: #FFF;
+  --dark_80: rgb(255, 255, 255, 0.8);
+  --dark_75: rgb(255, 255, 255, 0.75);
+  --dark_50: rgb(255, 255, 255, 0.5);
+  --dark_25: rgb(255, 255, 255, 0.25);
+  --dark_10: rgb(255, 255, 255, 0.1);
+  --dark_5: rgb(255, 255, 255, 0.05);
+  --dark_0: rgb(255, 255, 255, 0);
+  --light: #1A1A1A;
+  --light_80: rgb(26, 26, 26, 0.8);
+  --light_75: rgb(26, 26, 26, 0.75);
+  --light_50: rgb(26, 26, 26, 0.5);
+  --light_25: rgb(26, 26, 26, 0.25);
+  --light_10: rgb(26, 26, 26, 0.1);
+  --light_5: rgb(26, 26, 26, 0.05);
+
+  --border: #B9B9B9;
+  --input_bg: #F5F5F5;
+
+  --top-gradient: linear-gradient(180deg, #fff 0%, #ffffff00 100%) !important;
+  --bottom-gradient: linear-gradient(0deg, #fff 0%, #ffffff00 100%) !important;
+}
+
+[data-theme='light'] img {
+  filter: invert(1);
 }
 
 @media (max-width: 768px) {

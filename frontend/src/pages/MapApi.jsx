@@ -9,7 +9,7 @@ import { askBruno } from '@requests/AskBruno';
 const MapComponent = () => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
-  const [activeCategories, setActiveCategories] = useState(['Food', 'Parking', 'Bus Stop', 'Recreation']);
+  const [activeCategories, setActiveCategories] = useState(['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators']);
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
   const [isDaytime, setIsDaytime] = useState(true);
 
@@ -29,8 +29,8 @@ const MapComponent = () => {
 
     // Switch between light and dark styles
     const newStyle = isDaylight
-      ? 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0' // your day style
-      : 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c'; // create and add your dark style ID
+      ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc' // your day style
+      : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4'; // create and add your dark style ID
 
     mapRef.current.setStyle(newStyle);
   };
@@ -40,8 +40,8 @@ const MapComponent = () => {
 
     const initialIsDaytime = checkDayTime();
     const initialStyle = initialIsDaytime
-      ? 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0'
-      : 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c';
+      ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc'
+      : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4';
 
 
     mapRef.current = new mapboxgl.Map({
@@ -81,6 +81,120 @@ const MapComponent = () => {
     });
 
     mapRef.current.on('load', () => {
+      // Remove or comment out your existing fetch code
+      fetch('/data/map.geojson')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to load GeoJSON');
+          }
+          return response.json();
+        })
+        .then(geojsonData => {
+          console.log('GeoJSON data loaded:', geojsonData);
+
+          // Add IDs to features if they don't have them
+          geojsonData.features = geojsonData.features.map((feature, index) => ({
+            ...feature,
+            id: feature.id || index
+          }));
+
+          // Add the source
+          mapRef.current.addSource('room-data', {
+            type: 'geojson',
+            data: geojsonData
+          });
+
+          // Add the extrusion layer
+          mapRef.current.addLayer({
+            'id': 'room-extrusion',
+            'type': 'fill-extrusion',
+            'source': 'room-data',
+            'paint': {
+              'fill-extrusion-color': [
+                'case',
+                ['boolean', ['feature-state', 'clicked'], false],
+                ['get', 'color'],
+                '#aaa' // Default color when not clicked
+              ],
+              'fill-extrusion-height': [
+                'coalesce',
+                ['get', 'height'],
+                20 // Default height if height is null
+              ],
+              'fill-extrusion-base': [
+                'coalesce',
+                ['get', 'base_height'],
+                0 // Default base_height if base_height is null
+              ],
+              'fill-extrusion-opacity': 0.7  // Use a simple number for opacity
+            }
+          });
+
+          // Variable to store the ID of the currently clicked feature
+          let clickedId = null;
+
+          // Add click handler for the rooms
+          mapRef.current.on('click', 'room-extrusion', (e) => {
+            console.log('Click event:', e);
+            console.log('Features:', e.features);
+            if (e.features.length > 0) {
+              e.preventDefault(); // Prevent the click from propagating
+
+              const clickedFeature = e.features[0];
+
+              // If we have a previously clicked feature, reset its state
+              if (clickedId !== null) {
+                mapRef.current.setFeatureState(
+                  { source: 'room-data', id: clickedId },
+                  { clicked: false }
+                );
+              }
+
+              // Set the state of the clicked feature
+              clickedId = clickedFeature.id;
+              mapRef.current.setFeatureState(
+                { source: 'room-data', id: clickedId },
+                { clicked: true }
+              );
+
+              // Optional: Add popup with information
+              // new mapboxgl.Popup()
+              //   .setLngLat(e.lngLat)
+              //   .setHTML(`
+              //     <div style="padding: 10px;">
+              //       <h3>${clickedFeature.properties.name || 'Area'}</h3>
+              //       ${clickedFeature.properties.description ? 
+              //         `<p>${clickedFeature.properties.description}</p>` : 
+              //         ''}
+              //     </div>
+              //   `)
+              //   .addTo(mapRef.current);
+            }
+          });
+
+          // Add click handler for resetting when clicking elsewhere
+          mapRef.current.on('click', (e) => {
+            // Only run if we didn't click on a room
+            if (!e.defaultPrevented && clickedId !== null) {
+              mapRef.current.setFeatureState(
+                { source: 'room-data', id: clickedId },
+                { clicked: false }
+              );
+              clickedId = null;
+            }
+          });
+
+          // Change cursor on hover
+          mapRef.current.on('mouseenter', 'room-extrusion', () => {
+            mapRef.current.getCanvas().style.cursor = 'pointer';
+          });
+
+          mapRef.current.on('mouseleave', 'room-extrusion', () => {
+            mapRef.current.getCanvas().style.cursor = '';
+          });
+        })
+        .catch(err => console.error('Error loading GeoJSON:', err));
+
       // Add click handler
       mapRef.current.on('click', (event) => {
         const features = mapRef.current.queryRenderedFeatures(event.point, {
@@ -182,16 +296,16 @@ const MapComponent = () => {
     });
   };
 
-  const toggleDayNight = () => {
-    if (mapRef.current) {
-      const newStyle = isDaytime
-        ? 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c'
-        : 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0';
+  // const toggleDayNight = () => {
+  //   if (mapRef.current) {
+  //     const newStyle = isDaytime
+  //       ? 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c'
+  //       : 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0';
       
-      mapRef.current.setStyle(newStyle);
-      setIsDaytime(!isDaytime);
-    }
-  };
+  //     mapRef.current.setStyle(newStyle);
+  //     setIsDaytime(!isDaytime);
+  //   }
+  // };
 
   const [messageHistory, setMessageHistory] = useState([
     {
@@ -259,7 +373,7 @@ const MapComponent = () => {
       }}>
         <h3 style={{ margin: '0 0 10px 0', fontSize: '16px' }}>Filter Categories</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {['Food', 'Parking', 'Bus Stop', 'Recreation'].map(category => (
+          {['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators'].map(category => (
             <label
               key={category}
               style={{
@@ -285,7 +399,7 @@ const MapComponent = () => {
           gap: '8px'
         }}>
           <button
-            onClick={() => setActiveCategories(['Food', 'Parking', 'Bus Stop', 'Recreation'])}
+            onClick={() => setActiveCategories(['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators'])}
             style={{
               padding: '6px 12px',
               border: '1px solid #ccc',

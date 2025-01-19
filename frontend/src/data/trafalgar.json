@@ -171,8 +171,7 @@
                         "title": "Harvey's",
                         "location": "Inside the Bruins' Den (Cafeteria)",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.467941, -79.700889
                         ],
                         "description": "Burgers and fries.",
                         "timeslot": "8:00 AM - 7:00 PM (Mon-Fri)",
@@ -183,8 +182,7 @@
                         "title": "Subway",
                         "location": "Inside the Bruins' Den (Cafeteria)",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.467978, -79.700886
                         ],
                         "description": "Sandwiches and salads.",
                         "timeslot": "8:00 AM - 7:00 PM (Mon-Fri)",
@@ -195,8 +193,7 @@
                         "title": "Pizza Pizza",
                         "location": "Inside the Bruins' Den (Cafeteria)",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.467958, -79.700574
                         ],
                         "description": "Pizza and other Italian-American dishes.",
                         "timeslot": "8:00 AM - 7:00 PM (Mon-Fri)",
@@ -207,8 +204,8 @@
                         "title": "Thai Express",
                         "location": "Inside the Bruins' Den (Cafeteria)",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.467964,
+                            -79.700716
                         ],
                         "description": "Thai cuisine.",
                         "timeslot": "8:00 AM - 7:00 PM (Mon-Fri)",
@@ -223,7 +220,7 @@
                             -79.699646
                         ],
                         "description": "Smoothies and juices.",
-                        "timeslot": "Varies",
+                        "timeslot": "7:30 AM - 5:00 PM (Mon-Fri)",
                         "state": null,
                         "link": null
                     },
@@ -231,11 +228,10 @@
                         "title": "Coffee Loft",
                         "location": "Upstairs from The Marquee",
                         "coordinates": [
-                            43.469307,
-                            -79.699595
+                            43.469315, -79.699479
                         ],
                         "description": "Cozy nook for coffee and snacks.",
-                        "timeslot": "Varies",
+                        "timeslot": "7:30 AM - 5:00 PM (Mon-Fri)",
                         "state": null,
                         "link": null
                     },
@@ -243,11 +239,11 @@
                         "title": "Sheridan Bookstore (Snacks & Drinks)",
                         "location": "Inside the B-Wing",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.468658, 
+                            -79.699985
                         ],
                         "description": "Variety of drinks and snacks.",
-                        "timeslot": "Varies",
+                        "timeslot": "8:30 AM - 4:30 PM (Mon-Fri)",
                         "state": null,
                         "link": null
                     }
@@ -261,8 +257,7 @@
                         "title": "The Trafalgar Athletic Centre (TAC)",
                         "location": "South end of campus",
                         "coordinates": [
-                            43.4604,
-                            -79.6987
+                            43.467562, -79.703445
                         ],
                         "description": "Gym with fitness center, basketball courts, and a running track.",
                         "timeslot": "7:00 AM - 10:00 PM (Mon-Fri)",
@@ -273,8 +268,7 @@
                         "title": "Bruins' Field",
                         "location": "Outdoor field for soccer and other sports",
                         "coordinates": [
-                            43.4601,
-                            -79.6980
+                            43.466972, -79.703745
                         ],
                         "description": "Available for student use.",
                         "timeslot": null,
@@ -285,8 +279,7 @@
                         "title": "Fitness Studio",
                         "location": "Inside the TAC",
                         "coordinates": [
-                            43.4604,
-                            -79.6987
+                            43.467354, -79.703188
                         ],
                         "description": "Studio for fitness classes like yoga and Zumba.",
                         "timeslot": null,
@@ -303,8 +296,7 @@
                         "title": "Student Services",
                         "location": "B-Wing, Room B106",
                         "coordinates": [
-                            43.4613,
-                            -79.6993
+                            43.468396, -79.700196
                         ],
                         "description": "Assistance with registration, financial aid, and academic advising.",
                         "timeslot": "9:00 AM - 4:30 PM (Mon-Fri)",
@@ -315,8 +307,7 @@
                         "title": "Library Services",
                         "location": "C-Wing, Learning Commons",
                         "coordinates": [
-                            43.4610,
-                            -79.6998
+                            43.468434, -79.699166
                         ],
                         "description": "Help with research, borrowing materials, and accessing online resources.",
                         "timeslot": "8:30 AM - 8:00 PM (Mon-Fri)",
@@ -327,8 +318,7 @@
                         "title": "Campus Safety Office",
                         "location": "B-Wing, Room B100",
                         "coordinates": [
-                            43.4613,
-                            -79.6993
+                            43.468275, -79.700304
                         ],
                         "description": "Security and emergency services.",
                         "timeslot": "24 hours",
@@ -339,8 +329,8 @@
                         "title": "Parking Office",
                         "location": "B-Wing, Room B136 (Bookstore)",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.468658, 
+                            -79.699985
                         ],
                         "description": "Purchase parking permits and resolve parking issues.",
                         "timeslot": "9:00 AM - 4:00 PM (Mon-Fri)",
@@ -348,11 +338,10 @@
                         "link": null
                     },
                     {
-                        "title": "Sheridan College Institute of Technology and Advanced Learning (SCIL)",
-                        "location": "S-Wing",
+                        "title": "Centre for Applied AI",
+                        "location": "S-Wing, 4th floor",
                         "coordinates": [
-                            43.4607,
-                            -79.6983
+                            43.468802, -79.698435
                         ],
                         "description": "Offers applied research and development services.",
                         "timeslot": null,
@@ -363,8 +352,7 @@
                         "title": "SSU Customer Service",
                         "location": "Student Centre, 2nd Floor, SC200",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.469295, -79.699761
                         ],
                         "description": "Have questions about the SSU services? Our Customer Service Representatives will welcome you and answer any SSU service questions you may have.",
                         "timeslot": "9:00 AM - 5:00 PM (Mon-Fri)",
@@ -381,8 +369,7 @@
                         "title": "Trafalgar Gallery",
                         "location": "A-Wing",
                         "coordinates": [
-                            43.4619,
-                            -79.7000
+                            43.468413, -79.701748
                         ],
                         "description": "Gallery showcasing student and faculty artwork.",
                         "timeslot": "10:00 AM - 4:00 PM (Tues-Sat)",
@@ -393,8 +380,7 @@
                         "title": "Theatre Sheridan",
                         "location": "H-Wing",
                         "coordinates": [
-                            43.4623,
-                            -79.6997
+                            43.468993, -79.700359
                         ],
                         "description": "Performance venue for theatre productions.",
                         "timeslot": null,
@@ -411,8 +397,7 @@
                         "title": "Oakville Transit Bus Stop (B-Wing)",
                         "location": "In front of B-Wing",
                         "coordinates": [
-                            43.4614,
-                            -79.6991
+                            43.469721, -79.697498
                         ],
                         "description": "Oakville Transit bus stop for routes 19, 24, and 4.",
                         "timeslot": null,
@@ -423,8 +408,7 @@
                         "title": "GO Bus Stop (Trafalgar & Dundas)",
                         "location": "Walking distance from campus, at Trafalgar Rd & Dundas St",
                         "coordinates": [
-                            43.4641,
-                            -79.7037
+                            43.469721, -79.697498
                         ],
                         "description": "GO Transit bus stop for routes 18 and 21.",
                         "timeslot": null,
@@ -441,8 +425,7 @@
                         "title": "Bike Racks (A-Wing)",
                         "location": "Outside A-Wing entrance",
                         "coordinates": [
-                            43.4619,
-                            -79.7001
+                            43.468432, -79.702031
                         ],
                         "description": "Secure bike racks for students and staff.",
                         "timeslot": null,
@@ -453,8 +436,7 @@
                         "title": "Bike Racks (B-Wing)",
                         "location": "Near B-Wing entrance, by the bus loop",
                         "coordinates": [
-                            43.4614,
-                            -79.6992
+                            43.468079, -79.700371
                         ],
                         "description": "Covered bike racks near the main entrance.",
                         "timeslot": null,
@@ -465,8 +447,7 @@
                         "title": "Bike Racks (H-Wing)",
                         "location": "Behind H-Wing, near the Sheridan Centre for Elder Research",
                         "coordinates": [
-                            43.4624,
-                            -79.6998
+                            43.469061, -79.700568
                         ],
                         "description": "Outdoor bike racks.",
                         "timeslot": null,
@@ -483,8 +464,7 @@
                         "title": "Student Centre",
                         "location": "B-Wing",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.469107, -79.699636
                         ],
                         "description": "Central hub for student activities and services. The SSU Square has many tables with comfy sofas and lounges. The main area is great for group work.",
                         "timeslot": null,
@@ -495,8 +475,7 @@
                         "title": "Learning Commons",
                         "location": "C-Wing",
                         "coordinates": [
-                            43.4610,
-                            -79.6998
+                            43.468346, -79.699353
                         ],
                         "description": "Library, computer labs, and study spaces. Group tables, couches, computers, and printers available. Quiet study room in C148b and bookable glass rooms.",
                         "timeslot": "8:00 AM - 10:00 PM (Mon-Fri)",
@@ -507,8 +486,7 @@
                         "title": "Library Cubicles",
                         "location": "C-Wing, back of the library",
                         "coordinates": [
-                            43.4610,
-                            -79.6998
+                            43.468434, -79.699166
                         ],
                         "description": "Quiet cubicles for individual study.",
                         "timeslot": "8:30 AM - 8:00 PM (Mon-Fri)",
@@ -519,8 +497,7 @@
                         "title": "Quiet Study Room (Library)",
                         "location": "C-Wing, C102",
                         "coordinates": [
-                            43.4610,
-                            -79.6998
+                            43.468444, -79.699028
                         ],
                         "description": "Quiet room for focused study.",
                         "timeslot": "8:30 AM - 8:00 PM (Mon-Fri)",
@@ -531,11 +508,10 @@
                         "title": "Coffee Loft",
                         "location": "Student Centre, 2nd Floor",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.469315, -79.699479
                         ],
                         "description": "Quiet and relaxing environment with coffee and snacks.",
-                        "timeslot": "Varies",
+                        "timeslot": "7:30 PM - 5:00 PM (Mon-Fri)",
                         "state": null,
                         "link": null
                     },
@@ -543,8 +519,7 @@
                         "title": "B-Wing Table Area (3rd Floor)",
                         "location": "B-Wing, 3rd Floor",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.468406, -79.700168
                         ],
                         "description": "Tables and chairs for studying.",
                         "timeslot": null,
@@ -555,8 +530,7 @@
                         "title": "SCAET-Wing Study Areas",
                         "location": "SCAET-Wing, each floor",
                         "coordinates": [
-                            43.4607,
-                            -79.6983
+                            43.468806, -79.698639
                         ],
                         "description": "Tables and chairs in the corners of the halls and booths in front of Second Cup.",
                         "timeslot": null,
@@ -573,8 +547,7 @@
                         "title": "All Gender Washroom (Student Centre)",
                         "location": "SSU Student Centre, by Coffee Loft entrance (2nd Floor)",
                         "coordinates": [
-                            43.4613,
-                            -79.6994
+                            43.469248, -79.699762
                         ],
                         "description": "Single-stall washroom available to people of all genders and sexes.",
                         "timeslot": null,
@@ -585,8 +558,7 @@
                         "title": "All Gender Washroom (B-Wing)",
                         "location": "B-Wing, Student Health and Wellness Centre Hallway (has door opener)",
                         "coordinates": [
-                            43.4613,
-                            -79.6993
+                            43.468717, -79.700000
                         ],
                         "description": "Single-stall washroom available to people of all genders and sexes.",
                         "timeslot": null,
@@ -597,8 +569,7 @@
                         "title": "All Gender Washroom (C-Wing)",
                         "location": "C-Wing, by C114 (near the Learning Commons and Library)",
                         "coordinates": [
-                            43.4610,
-                            -79.6998
+                            43.468561, -79.699253
                         ],
                         "description": "Single-stall washroom available to people of all genders and sexes. The door opener sometimes sticks.",
                         "timeslot": null,
@@ -609,8 +580,7 @@
                         "title": "All Gender Washroom (E-Wing)",
                         "location": "E-Wing, near vending machines at C-Wing entrance (has door opener)",
                         "coordinates": [
-                            43.4618,
-                            -79.6996
+                            43.467831, -79.699881
                         ],
                         "description": "Single-stall washroom available to people of all genders and sexes.",
                         "timeslot": null,
@@ -621,8 +591,7 @@
                         "title": "All Gender Washroom (H-Wing)",
                         "location": "H-Wing, HB09",
                         "coordinates": [
-                            43.4623,
-                            -79.6997
+                            43.469012, -79.700283
                         ],
                         "description": "Single-stall washroom available to people of all genders and sexes. Not physically accessible.",
                         "timeslot": null,
@@ -633,44 +602,19 @@
                         "title": "All Gender Washroom (J-Wing, 1st Floor)",
                         "location": "J-Wing, J107 (by elevator)",
                         "coordinates": [
-                            43.4621,
-                            -79.6995
+                            43.469185, -79.699704
                         ],
                         "description": "Single-stall washroom available to people of all genders and sexes.",
                         "timeslot": null,
                         "state": null,
                         "link": null
                     },
-                    {
-                        "title": "All Gender Washroom (J-Wing, 1st Floor)",
-                        "location": "J-Wing, J124",
-                        "coordinates": [
-                            43.4621,
-                            -79.6995
-                        ],
-                        "description": "Single-stall washroom available to people of all genders and sexes.",
-                        "timeslot": null,
-                        "state": null,
-                        "link": null
-                    },
-                    {
-                        "title": "All Gender Washroom (J-Wing, 1st Floor)",
-                        "location": "J-Wing, J126",
-                        "coordinates": [
-                            43.4621,
-                            -79.6995
-                        ],
-                        "description": "Single-stall washroom available to people of all genders and sexes.",
-                        "timeslot": null,
-                        "state": null,
-                        "link": null
-                    },
+                
                     {
                         "title": "All Gender Washroom (J-Wing, 2nd Floor)",
                         "location": "J-Wing, J207 (by elevator)",
                         "coordinates": [
-                            43.4621,
-                            -79.6995
+                            43.469181, -79.699696
                         ],
                         "description": "Single-stall washroom available to people of all genders and sexes.",
                         "timeslot": null,
@@ -681,8 +625,7 @@
                         "title": "All Gender Washroom (J-Wing, 3rd Floor)",
                         "location": "J-Wing, J309 (by elevator)",
                         "coordinates": [
-                            43.4621,
-                            -79.6995
+                            43.469181, -79.699696
                         ],
                         "description": "Single-stall washroom available to people of all genders and sexes.",
                         "timeslot": null,
@@ -699,8 +642,7 @@
                         "title": "Elevator (B-Wing)",
                         "location": "B-Wing, near main entrance",
                         "coordinates": [
-                            43.4614,
-                            -79.6992
+                            43.468372, -79.700233
                         ],
                         "description": "Elevator providing access to all floors of B-Wing.",
                         "timeslot": null,
@@ -711,10 +653,20 @@
                         "title": "Elevator (C-Wing)",
                         "location": "C-Wing, near the Learning Commons",
                         "coordinates": [
-                            43.4610,
-                            -79.6998
+                            43.468481, -79.699204
                         ],
                         "description": "Elevator providing access to all floors of C-Wing.",
+                        "timeslot": null,
+                        "state": null,
+                        "link": null
+                    },
+                    {
+                        "title": "Elevator (SCAET)",
+                        "location": "S-Wing, main entrance",
+                        "coordinates": [
+                            43.468481, -79.699204
+                        ],
+                        "description": "Elevator providing access to all floors of S-Wing.",
                         "timeslot": null,
                         "state": null,
                         "link": null
