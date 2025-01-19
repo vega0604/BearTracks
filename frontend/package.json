@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@react-three/drei": "^9.121.2",
+    "@react-three/fiber": "^8.17.12",
     "antd": "^5.23.1",
     "cmdk": "^1.0.4",
     "mapbox-gl": "^3.9.3",

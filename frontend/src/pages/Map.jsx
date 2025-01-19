@@ -8,7 +8,8 @@ import dropdown from '@assets/icons/dropdown.svg';
 import filters from '@assets/icons/filters.svg';
 import new_tab_arrow from '@assets/icons/new_tab_arrow.svg';
 import trafalgar from '@data/trafalgar.json';
-import {Popover, Button} from "antd";
+import { Command } from 'cmdk';
+import { Popover, Button } from "antd";
 
 const LandmarkContext = createContext(null);
 
@@ -24,7 +25,7 @@ const LandmarkCategory = ({ category, data}) => {
 
     return (
         <div className={styles.landmark_category} tabIndex="0">
-            <div className={styles.landmark_category_header}  onClick={handleClick}>
+            <div className={styles.landmark_category_header} onClick={handleClick}>
                 <div className={styles.landmark_category_container}>
                     <div className={styles.landmark_icon} style={{ backgroundColor: `${data.color}7d` }}>
                         {data.emoji}
@@ -34,10 +35,10 @@ const LandmarkCategory = ({ category, data}) => {
                         <p>{numSpots} locations, {numSpotsWithLinks} with links</p>
                     </div>
                 </div>
-                <img 
-                    src={dropdown} 
-                    alt="Dropdown icon" 
-                    style={{ transform: expanded ? 'rotate(0deg)' : 'rotate(-180deg)' }} 
+                <img
+                    src={dropdown}
+                    alt="Dropdown icon"
+                    style={{ transform: expanded ? 'rotate(0deg)' : 'rotate(-180deg)' }}
                 />
             </div>
             {expanded && (
@@ -62,31 +63,96 @@ const LandmarkCategory = ({ category, data}) => {
     );
 };
 
-const LandmarkList = () => {
+const LandmarkList = ({ activeCategories, sortBy }) => {
+    const selectedLandmarks = Object.entries(trafalgar[0].landmarks)
+      .filter(([category, _]) => activeCategories.includes(category));
+  
+    const sortedLandmarks = sortLandmarks(selectedLandmarks, sortBy);
+  
     return (
-        <div id={styles.landmarks_list}>
-            <div className={styles.top_gradient} />
-            {Object.entries(trafalgar[0].landmarks).map(([category, data]) => (
-                <LandmarkCategory
-                    key={category}
-                    category={category}
-                    data={data}
-                />
-            ))}
-            <div className={styles.bottom_gradient} />
-        </div>
+      <div id={styles.landmarks_list}>
+        <div className={styles.top_gradient} />
+        {sortedLandmarks.map(([category, data]) => (
+          <LandmarkCategory
+            key={category}
+            category={category}
+            data={data}
+          />
+        ))}
+        <div className={styles.bottom_gradient} />
+      </div>
     );
-};
+  };
+  
+  function sortLandmarks(landmarks, sortBy) {
+    switch (sortBy) {
+        case 'Locations':
+            return landmarks.slice().sort((a, b) => b[1].spots.length - a[1].spots.length);
+        case 'Name (A-Z)':
+            return landmarks.slice().sort((a, b) => a[0].localeCompare(b[0]));
+        case 'Name (Z-A)':
+            return landmarks.slice().sort((a, b) => b[0].localeCompare(a[0]));
+        default:
+            return landmarks;
+    }
+  }
 
 function Map() {
-    const [theme, setTheme] = useLocalStorage("theme", "light");
-    
-    const toggleTheme = () =>{
-        setTheme(theme === "dark" ? "light": "dark");
+    const [sortBy, setSortBy] = useState('Locations');
+
+    const handleSortChange = (e) => {
+        setSortBy(e.target.value);
+    };
+
+    const sortOptions = [
+        { value: 'Locations', label: 'Number of Locations' },
+        { value: 'Name (A-Z)', label: 'Name (A-Z)' },
+        { value: 'Name (Z-A)', label: 'Name (Z-A)' },
+    ];
+      const sortContent = (
+        <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {sortOptions.map(option => (
+              <label
+                key={option.value}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  userSelect: 'none'
+                }}
+              >
+                <input
+                  type="radio"
+                  value={option.value}
+                  checked={sortBy === option.value}
+                  onChange={handleSortChange}
+                  style={{ marginRight: '8px' }}
+                />
+                {option.label}
+              </label>
+            ))}
+          </div>
+        </div>
+      );
+
+    const [theme, setTheme] = useLocalStorage("theme", "dark");
+    const [open, setOpen] = useState(false);
+
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const landmarks = Object.values(trafalgar[0].landmarks).flatMap((category) => category.spots);
+    const filteredLandmarks = landmarks.filter((landmark) =>
+        landmark.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+
+    const toggleTheme = () => {
+        setTheme(theme === "dark" ? "light" : "dark");
     };
 
     useEffect(() => {
-        setTheme("dark");
+        // setTheme("dark");
         document.body.setAttribute("data-theme", theme);
     }, [theme]);
 
@@ -95,12 +161,12 @@ function Map() {
 
     const toggleCategory = (category) => {
         setActiveCategories(prev => {
-          if (prev.includes(category)) {
-            return prev.filter(cat => cat !== category);
-          }
-          return [...prev, category];
+            if (prev.includes(category)) {
+                return prev.filter(cat => cat !== category);
+            }
+            return [...prev, category];
         });
-      };
+    };
 
     const content = (
         <div>
@@ -125,44 +191,46 @@ function Map() {
                 </label>
               ))}
             </div>
-            <div style={{ 
-              marginTop: '12px',
-              display: 'flex',
-              gap: '8px'
+            <div style={{
+                marginTop: '12px',
+                display: 'flex',
+                gap: '8px'
             }}>
-              <button
-                onClick={() => setActiveCategories(categories)}
-                style={{
-                  padding: '6px 12px',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  background: '#fff',
-                  cursor: 'pointer'
-                }}
-              >
-                Select All
-              </button>
-              <button
-                onClick={() => setActiveCategories([])}
-                style={{
-                  padding: '6px 12px',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  background: '#fff',
-                  cursor: 'pointer'
-                }}
-              >
-                Clear All
-              </button>
+                <button
+                    onClick={() => setActiveCategories(categories)}
+                    style={{
+                        padding: '6px 12px',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        background: '#fff',
+                        cursor: 'pointer'
+                    }}
+                >
+                    Select All
+                </button>
+                <button
+                    onClick={() => setActiveCategories([])}
+                    style={{
+                        padding: '6px 12px',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        background: '#fff',
+                        cursor: 'pointer'
+                    }}
+                >
+                    Clear All
+                </button>
             </div>
-          </div>
+        </div>
     );
 
+    
     const [selectedLandmark, setSelectedLandmark] = useState(null);
+    const [navOpened, setNavOpened] = useState(false);
 
     return (
         <section id={styles.map_section} data-theme={theme}>
-            <nav id={styles.nav_container}>
+            <nav id={styles.nav_container} data-opened={navOpened} tabIndex="0" onClick={(e) => e.target.focus()} onFocus={() => setNavOpened(true)}>
                 <div id={styles.header}>
                     <div id={styles.logo}>
                         <img src={light_paw} alt="Paw icon" />
@@ -172,10 +240,36 @@ function Map() {
                         <h2>Trafalgar 🍯</h2>
                     </div>
                 </div>
-                <div id={styles.search_bar}>
-                    <input placeholder="Search..." />
+                <div id={styles.search_bar} onClick={() => setOpen(true)}>
+                    <input placeholder={open ? '' : "Search..."} /> 
+                    <Command.Dialog
+                        open={open}
+                        onOpenChange={setOpen}
+                        label="Landmarks"
+                        id={styles.cmdk_dialog}
+                    >
+                        <Command.Input
+                            value={searchTerm}
+                            onValueChange={setSearchTerm}
+                            placeholder="Search..."
+                            className={styles.cmdk_input}
+                        />
+                        <Command.List className={styles.cmdk_list}>
+                            <Command.Item className={styles.cmdk_list_item} onSelect={toggleTheme}>
+                                {theme == 'light'? '🌑 ':'🌞 '}
+                                Toggle Theme
+                            </Command.Item>
+                            { filteredLandmarks.map((landmark, i) => (
+                                <Command.Item key={i} className={styles.cmdk_list_item} onSelect={() => setSelectedLandmark(landmark)}>
+                                    {landmark.title}
+
+                                </Command.Item>
+                            ))}
+                        </Command.List>
+                    </Command.Dialog>
                     <img src={search_icon} alt="Search icon" />
                 </div>
+
                 <div id={styles.options}>
                     <div className={styles.option}>
                         <label>Landmarks:</label>
@@ -185,7 +279,9 @@ function Map() {
                     </div>
                     <div className={styles.option}>
                         <label>Sort by:</label>
-                        <div>Name <img src={dropdown} /></div>
+                        <Popover content={sortContent} title="Sort Options" trigger="click">
+                            <Button className={styles.option}>{sortBy}</Button> 
+                        </Popover>
                     </div>
                     <div id={styles.filters_container} className={styles.option}>
                         <div><img src={filters} alt="filters icon" /> Filters</div>
@@ -193,12 +289,12 @@ function Map() {
                 </div>
                 <div id={styles.landmarks_list_container}>
                     <LandmarkContext.Provider value={{setSelectedLandmark: setSelectedLandmark}}>
-                        <LandmarkList />
+                        <LandmarkList activeCategories={activeCategories} sortBy={sortBy}/>
                     </LandmarkContext.Provider>
                 </div>
-                <div id={styles.bottom_gradient}/>
+                <div id={styles.bottom_gradient} />
             </nav>
-            <div id={styles.map_wrapper}>
+            <div id={styles.map_wrapper} tabIndex="0" onClick={(e) => e.target.focus()} onFocus={() => setNavOpened(false)}>
                 <div id={styles.map_container}>
                     <MapComponent activeCategories={activeCategories} selectedLandmark={selectedLandmark} />
                 </div>
