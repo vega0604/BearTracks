@@ -228,6 +228,17 @@ function Map() {
     const [selectedLandmark, setSelectedLandmark] = useState(null);
     const [navOpened, setNavOpened] = useState(false);
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                setOpen((prev) => !prev);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
     return (
         <section id={styles.map_section} data-theme={theme}>
             <nav id={styles.nav_container} data-opened={navOpened} tabIndex="0" onClick={(e) => e.target.focus()} onFocus={() => setNavOpened(true)}>
