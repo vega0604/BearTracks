@@ -78,6 +78,120 @@ const MapComponent = () => {
     });
 
     mapRef.current.on('load', () => {
+      // Remove or comment out your existing fetch code
+      fetch('/data/map.geojson')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to load GeoJSON');
+          }
+          return response.json();
+        })
+        .then(geojsonData => {
+          console.log('GeoJSON data loaded:', geojsonData);
+
+          // Add IDs to features if they don't have them
+          geojsonData.features = geojsonData.features.map((feature, index) => ({
+            ...feature,
+            id: feature.id || index
+          }));
+
+          // Add the source
+          mapRef.current.addSource('room-data', {
+            type: 'geojson',
+            data: geojsonData
+          });
+
+          // Add the extrusion layer
+          mapRef.current.addLayer({
+            'id': 'room-extrusion',
+            'type': 'fill-extrusion',
+            'source': 'room-data',
+            'paint': {
+              'fill-extrusion-color': [
+                'case',
+                ['boolean', ['feature-state', 'clicked'], false],
+                ['get', 'color'],
+                '#aaa' // Default color when not clicked
+              ],
+              'fill-extrusion-height': [
+                'coalesce',
+                ['get', 'height'],
+                20 // Default height if height is null
+              ],
+              'fill-extrusion-base': [
+                'coalesce',
+                ['get', 'base_height'],
+                0 // Default base_height if base_height is null
+              ],
+              'fill-extrusion-opacity': 0.7  // Use a simple number for opacity
+            }
+          });
+
+          // Variable to store the ID of the currently clicked feature
+          let clickedId = null;
+
+          // Add click handler for the rooms
+          mapRef.current.on('click', 'room-extrusion', (e) => {
+            console.log('Click event:', e);
+            console.log('Features:', e.features);
+            if (e.features.length > 0) {
+              e.preventDefault(); // Prevent the click from propagating
+
+              const clickedFeature = e.features[0];
+
+              // If we have a previously clicked feature, reset its state
+              if (clickedId !== null) {
+                mapRef.current.setFeatureState(
+                  { source: 'room-data', id: clickedId },
+                  { clicked: false }
+                );
+              }
+
+              // Set the state of the clicked feature
+              clickedId = clickedFeature.id;
+              mapRef.current.setFeatureState(
+                { source: 'room-data', id: clickedId },
+                { clicked: true }
+              );
+
+              // Optional: Add popup with information
+              new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(`
+                  <div style="padding: 10px;">
+                    <h3>${clickedFeature.properties.name || 'Area'}</h3>
+                    ${clickedFeature.properties.description ? 
+                      `<p>${clickedFeature.properties.description}</p>` : 
+                      ''}
+                  </div>
+                `)
+                .addTo(mapRef.current);
+            }
+          });
+
+          // Add click handler for resetting when clicking elsewhere
+          mapRef.current.on('click', (e) => {
+            // Only run if we didn't click on a room
+            if (!e.defaultPrevented && clickedId !== null) {
+              mapRef.current.setFeatureState(
+                { source: 'room-data', id: clickedId },
+                { clicked: false }
+              );
+              clickedId = null;
+            }
+          });
+
+          // Change cursor on hover
+          mapRef.current.on('mouseenter', 'room-extrusion', () => {
+            mapRef.current.getCanvas().style.cursor = 'pointer';
+          });
+
+          mapRef.current.on('mouseleave', 'room-extrusion', () => {
+            mapRef.current.getCanvas().style.cursor = '';
+          });
+        })
+        .catch(err => console.error('Error loading GeoJSON:', err));
+
       // Add click handler
       mapRef.current.on('click', (event) => {
         const features = mapRef.current.queryRenderedFeatures(event.point, {
