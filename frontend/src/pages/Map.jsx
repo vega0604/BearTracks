@@ -136,7 +136,7 @@ function Map() {
         </div>
       );
 
-    const [theme, setTheme] = useLocalStorage("theme", "light");
+    const [theme, setTheme] = useLocalStorage("theme", "dark");
     const [open, setOpen] = useState(false);
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -156,7 +156,7 @@ function Map() {
     };
 
     useEffect(() => {
-        setTheme("dark");
+        // setTheme("dark");
         document.body.setAttribute("data-theme", theme);
     }, [theme]);
 
