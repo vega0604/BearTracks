@@ -161,7 +161,7 @@
 #map_container {
   position: relative;
   width: 100%;
-  height: 105vh;
+  height: calc(100vh + 2rem);
 }
 /* 
 .category-filter button:hover {

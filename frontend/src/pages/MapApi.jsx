@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import styles from '@css/brunochat.module.css';
 import mapboxgl from 'mapbox-gl';
 import SunCalc from 'suncalc';
+import submit_img from '@assets/icons/submit.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { askBruno } from '@requests/AskBruno';
 
 const MapComponent = () => {
   const mapContainerRef = useRef();
@@ -190,6 +193,38 @@ const MapComponent = () => {
     }
   };
 
+  const [messageHistory, setMessageHistory] = useState([
+    {
+      role: 'model',
+      message: 'Ask me anything about Sheridan!'
+    }
+  ])
+
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    const question = e.target.question.value;
+    let messages = messageHistory;
+    messages.push({role: 'user', message: question})
+    setMessageHistory(messages);
+    e.target.reset();
+    setAwaitingResponse(true);
+    const response = await askBruno(question);
+    messages.push({role: 'model', message: response.response});
+    setMessageHistory(messages);
+    setAwaitingResponse(false);
+
+  }
+
+  const [chatOpened, setChatOpened] = useState(false);
+  const messageHistoryRef = useRef();
+
+  useEffect(() => {
+    if (messageHistoryRef.current){
+      messageHistoryRef.current.scrollTop = messageHistoryRef.current.scrollHeight;
+    }
+  }, [messageHistory])
   return (
     <div>
 
@@ -275,6 +310,23 @@ const MapComponent = () => {
           </button>
         </div>
       </div>
+        <div id={styles.chat_container} data-opened={chatOpened} onFocus={() => setChatOpened(true)}>
+          <h3>Ask Bruno</h3>
+          <ul id={styles.message_history} ref={messageHistoryRef}>
+            {messageHistory.map((item, i) => {
+              return (
+                <li key={i} className={`${styles.message} ${item.role == 'model' ? styles.model: styles.user}`}>{item.message}</li>
+              );
+            })}
+            {/* {awaitingResponse && <div>...</div>} */}
+          </ul>
+          <div id={styles.form_container}>
+            <form onSubmit={handleSubmit} id={styles.chat_form}>
+              <input type="text" name="question" placeholder='ask a question...' />
+              <button type="submit"><img src={submit_img} alt="submit" /></button>
+            </form>
+          </div>
+        </div>
 
       {/* Map Container */}
       <div
@@ -286,6 +338,7 @@ const MapComponent = () => {
           width: '100%',
         }}
       />
+
     </div>
   );
 };
