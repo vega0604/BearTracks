@@ -7,13 +7,14 @@
 
 /* || NAV */
 #nav_container {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 31rem;
   width: 31rem;
   max-width: 31rem;
   height: 100%;
-  padding: 2rem 1.2rem;
+  padding: 1.2rem 2rem;
 }
 
 #header {
@@ -40,11 +41,14 @@
   letter-spacing: -0.09rem;
 }
 
+#logo img {
+  padding-bottom: .325rem;
+}
+
 #campus h2 {
   margin: 0;
   font-family: Macondo;
   color: var(--secondary);
-  font-family: Macondo;
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
@@ -61,7 +65,7 @@
   border-radius: 0.9375rem;
   border: 1px solid var(--border);
   background: var(--input_bg);
-  margin-bottom: 2.12rem;
+  margin-bottom: 2rem;
 }
 
 #search_bar input {
@@ -71,7 +75,6 @@
   border-radius: 0.9375rem;
   padding-left: 1.5rem;
   color: var(--light);
-  font-family: Geist;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
@@ -150,6 +153,133 @@
   opacity: 1;
 }
 
+/* || Landmarks */
+#landmarks_list_container {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+}
+
+#landmarks_list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-block: 1.5rem 3rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+  gap: 1.375rem;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+}
+
+#landmarks_list .top_gradient,
+#bottom_gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5rem;
+  background: linear-gradient(180deg, #1A1A1A 0%, rgba(26, 26, 26, 0.00) 100%);
+  z-index: 1;
+}
+
+#bottom_gradient {
+  background: linear-gradient(0deg, #1A1A1A 0%, rgba(26, 26, 26, 0.00) 100%);
+  top: calc(100vh - 5rem);
+  height: 5rem;
+}
+
+.landmark_category {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: height .1s, opacity .1s;
+}
+
+.landmark_category_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: opacity .1s;
+}
+
+.landmark_category:hover .landmark_category_header {
+  opacity: .8;
+}
+
+.landmark_category_header img {
+  transition: transform .2s ease;
+}
+
+.landmark_category_container {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  gap: 1.38rem;
+  width: 100%;
+  height: 100%;
+  color: var(--light);
+}
+
+.landmark_icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  box-sizing: border-box;
+  width: 4rem;
+  height: 4rem;
+  padding: 0.875rem 0.8125rem;
+  line-height: 0;
+  border-radius: 100%;
+  font-size: 2rem;
+  user-select: none;
+}
+
+.landmark_info h3 {
+  margin: 0;
+  color: var(--light);
+  color: #F5F5F5;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.landmark_info p {
+  margin: 0;
+  color: var(--light_25);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.expanded_landmark {
+  color: var(--light);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  padding: 1.25rem 0rem;
+  align-items: flex-end;
+  gap: 0.625rem;
+  align-self: stretch;
+  border-bottom: 1px dashed var(--border);
+  flex-wrap: wrap;
+}
+
+.expanded_landmark span {
+  color: var(--light_75);
+  font-size: 1.125rem;
+}
+
 /* || MAP */
 #map_wrapper {
   width: 100%;
@@ -163,6 +293,7 @@
   width: 100%;
   height: 105vh;
 }
+
 /* 
 .category-filter button:hover {
   background: #f0f0f0;
