@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import jsconfigPaths from 'vite-jsconfig-paths';
 import { VitePWA } from 'vite-plugin-pwa';
 
+
 const manifestJSON = {
   manifest: {
     // caches the assets/icons mentioned (assets/* includes all the assets present in your src/ directory) 
@@ -27,7 +28,9 @@ const manifestJSON = {
   workbox: {
     // defining cached files formats
     globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
-    navigateFallback: 'index.html', // Fallback to index.html for unmatched routes
+    navigateFallback: 'index.html',
+    maximumFileSizeToCacheInBytes: 5000000, // 5 MB
+    // Fallback to index.html for unmatched routes
   },
   registerType: 'autoUpdate',
   strategies: 'generateSW'
