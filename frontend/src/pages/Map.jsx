@@ -8,7 +8,8 @@ import dropdown from '@assets/icons/dropdown.svg';
 import filters from '@assets/icons/filters.svg';
 import new_tab_arrow from '@assets/icons/new_tab_arrow.svg';
 import trafalgar from '@data/trafalgar.json';
-import {Popover, Button} from "antd";
+import { Command } from 'cmdk';
+import { Popover, Button } from "antd";
 
 const LandmarkContext = createContext(null);
 
@@ -24,7 +25,7 @@ const LandmarkCategory = ({ category, data}) => {
 
     return (
         <div className={styles.landmark_category} tabIndex="0">
-            <div className={styles.landmark_category_header}  onClick={handleClick}>
+            <div className={styles.landmark_category_header} onClick={handleClick}>
                 <div className={styles.landmark_category_container}>
                     <div className={styles.landmark_icon} style={{ backgroundColor: `${data.color}7d` }}>
                         {data.emoji}
@@ -34,10 +35,10 @@ const LandmarkCategory = ({ category, data}) => {
                         <p>{numSpots} locations, {numSpotsWithLinks} with links</p>
                     </div>
                 </div>
-                <img 
-                    src={dropdown} 
-                    alt="Dropdown icon" 
-                    style={{ transform: expanded ? 'rotate(0deg)' : 'rotate(-180deg)' }} 
+                <img
+                    src={dropdown}
+                    alt="Dropdown icon"
+                    style={{ transform: expanded ? 'rotate(0deg)' : 'rotate(-180deg)' }}
                 />
             </div>
             {expanded && (
@@ -81,9 +82,22 @@ const LandmarkList = ({activeCategories}) => {
 
 function Map() {
     const [theme, setTheme] = useLocalStorage("theme", "light");
-    
-    const toggleTheme = () =>{
-        setTheme(theme === "dark" ? "light": "dark");
+    const [open, setOpen] = useState(false);
+
+    const [searchTerm, setSearchTerm] = useState('');
+    console.log(open)
+
+    const landmarks = Object.values(trafalgar[0].landmarks)
+        .flatMap((category) => category.spots)
+        .map((spot) => ({ name: spot.title, category: spot.category, location: spot.location }));
+
+    const filteredLandmarks = landmarks.filter((landmark) =>
+        landmark.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+
+    const toggleTheme = () => {
+        setTheme(theme === "dark" ? "light" : "dark");
     };
 
     useEffect(() => {
@@ -96,12 +110,12 @@ function Map() {
 
     const toggleCategory = (category) => {
         setActiveCategories(prev => {
-          if (prev.includes(category)) {
-            return prev.filter(cat => cat !== category);
-          }
-          return [...prev, category];
+            if (prev.includes(category)) {
+                return prev.filter(cat => cat !== category);
+            }
+            return [...prev, category];
         });
-      };
+    };
 
     const content = (
         <div>
@@ -126,37 +140,37 @@ function Map() {
                 </label>
               ))}
             </div>
-            <div style={{ 
-              marginTop: '12px',
-              display: 'flex',
-              gap: '8px'
+            <div style={{
+                marginTop: '12px',
+                display: 'flex',
+                gap: '8px'
             }}>
-              <button
-                onClick={() => setActiveCategories(categories)}
-                style={{
-                  padding: '6px 12px',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  background: '#fff',
-                  cursor: 'pointer'
-                }}
-              >
-                Select All
-              </button>
-              <button
-                onClick={() => setActiveCategories([])}
-                style={{
-                  padding: '6px 12px',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  background: '#fff',
-                  cursor: 'pointer'
-                }}
-              >
-                Clear All
-              </button>
+                <button
+                    onClick={() => setActiveCategories(categories)}
+                    style={{
+                        padding: '6px 12px',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        background: '#fff',
+                        cursor: 'pointer'
+                    }}
+                >
+                    Select All
+                </button>
+                <button
+                    onClick={() => setActiveCategories([])}
+                    style={{
+                        padding: '6px 12px',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        background: '#fff',
+                        cursor: 'pointer'
+                    }}
+                >
+                    Clear All
+                </button>
             </div>
-          </div>
+        </div>
     );
 
     const [selectedLandmark, setSelectedLandmark] = useState(null);
@@ -173,10 +187,32 @@ function Map() {
                         <h2>Trafalgar 🍯</h2>
                     </div>
                 </div>
-                <div id={styles.search_bar}>
-                    <input placeholder="Search..." />
+                <div id={styles.search_bar} onClick={() => setOpen(true)}>
+                    <input placeholder={open ? '' : "Search..."} /> 
+                    <Command.Dialog
+                        open={open}
+                        onOpenChange={setOpen}
+                        label="Landmarks"
+                        id={styles.cmdk_dialog}
+                    >
+                        <Command.Input
+                            value={searchTerm}
+                            onValueChange={setSearchTerm}
+                            placeholder="Search..."
+                            className={styles.cmdk_input}
+                        />
+                        <Command.List className={styles.cmdk_list}>
+                            { filteredLandmarks.map((landmark) => (
+                                <Command.Item key={landmark.name} className={styles.cmdk_list_item}>
+                                    {landmark.name}
+
+                                </Command.Item>
+                            ))}
+                        </Command.List>
+                    </Command.Dialog>
                     <img src={search_icon} alt="Search icon" />
                 </div>
+
                 <div id={styles.options}>
                     <div className={styles.option}>
                         <label>Landmarks:</label>
@@ -197,7 +233,7 @@ function Map() {
                         <LandmarkList activeCategories={activeCategories} />
                     </LandmarkContext.Provider>
                 </div>
-                <div id={styles.bottom_gradient}/>
+                <div id={styles.bottom_gradient} />
             </nav>
             <div id={styles.map_wrapper}>
                 <div id={styles.map_container}>
