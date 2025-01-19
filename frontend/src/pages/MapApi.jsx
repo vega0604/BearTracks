@@ -6,7 +6,9 @@ import submit_img from '@assets/icons/submit.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { askBruno } from '@requests/AskBruno';
 import LoadingScreen from './LoadingScreen';
-
+import bruno2d_dark from '@assets/home/bruno2d_dark.png';
+import bruno2d_light from '@assets/home/bruno2d_light.png';
+import stars from '@assets/home/stars.png';
 
 const MapComponent = ({activeCategories, selectedLandmark}) => {
   const mapContainerRef = useRef();
@@ -391,6 +393,8 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
       {/* Category Filter Controls */}
       
         <div id={styles.chat_container} tabIndex={1} data-opened={chatOpened} onClick={(e) => e.target.focus()} onFocus={() => setChatOpened(true)} onBlur={() => setChatOpened(false)}>
+          <img src={stars} alt="stars" id={styles.stars} />
+          {/* <img src={bruno2d_dark} alt="Bruno" id={styles.bruno} /> */}
           <h3>Ask Bruno</h3>
           <ul id={styles.message_history} ref={messageHistoryRef}>
             {messageHistory.map((item, i) => {
