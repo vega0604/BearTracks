@@ -184,40 +184,42 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
         if (!features.length) return;
       
         const feature = features[0];
+        const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).replace(/_/g, ' ');
+
         const popupContent = `
-          <div style="font-family: Arial, sans-serif; padding: 10px;">
-            <h3 style="color: #000000; margin: 0 0 8px 0; font-size: 16px;">
-              ${feature.properties.title || 'No Title'}
+          <div style="font-family: Geist, sans-serif; padding: 10px; background-color: var(--primary); color: var(--light); border-radius: 4px;">
+            <h3 style="font-family: Geist; color: var(--dark); margin: 0 0 8px 0; font-size: 1.25rem;">
+              ${feature.properties.title || 'Landmark'}
             </h3>
             
-            <p style="color: #666666; margin: 4px 0; font-size: 14px;">
-              <strong>Category:</strong> ${feature.properties.category || 'N/A'}
-            </p>
-            
-            <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+            <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
               <strong>Location:</strong> ${feature.properties.location || 'N/A'}
+            </p>
+
+            <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
+              <strong>Category:</strong> ${capitalize(feature.properties.category) || 'N/A'}
             </p>
             
             ${feature.properties.description ? `
-              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+              <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
                 <strong>Description:</strong> ${feature.properties.description}
               </p>
             ` : ''}
             
             ${feature.properties.timeslot ? `
-              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+              <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
                 <strong>Hours:</strong> ${feature.properties.timeslot}
               </p>
             ` : ''}
             
             ${feature.properties.state ? `
-              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+              <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
                 <strong>State:</strong> ${feature.properties.state}
               </p>
             ` : ''}
             
             ${feature.properties.link ? `
-              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+              <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
                 <a href="${feature.properties.link}" target="_blank" style="color: #0066cc; text-decoration: none;">
                   More Information →
                 </a>
@@ -358,7 +360,6 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
     messages.push({role: 'model', message: response.response});
     setMessageHistory(messages);
     setAwaitingResponse(false);
-
   }
 
   const [chatOpened, setChatOpened] = useState(false);

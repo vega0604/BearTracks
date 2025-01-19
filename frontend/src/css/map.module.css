@@ -34,7 +34,7 @@
     max-width: unset;
     width: 100%;
     box-sizing: border-box;
-    z-index: 9999;
+    z-index: 9;
     background: var(--dark);
   }
 
@@ -420,18 +420,19 @@
   height: calc(100vh + 2rem);
 }
 
-/* 
-.category-filter button:hover {
+
+/* .category-filter button:hover {
   background: #f0f0f0;
 }
 
 .category-filter input[type="checkbox"] {
   accent-color: #4CAF50;
-}
+} 
 
 .custom-popup .mapboxgl-popup-content {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--dark);
 }
 
 .custom-popup .mapboxgl-popup-close-button {
