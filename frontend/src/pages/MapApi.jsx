@@ -173,16 +173,79 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
         .catch(err => console.error('Error loading GeoJSON:', err));
 
       // Add click handler
-      
       mapRef.current.on('click', (event) => {
-        const features = mapRef.current.queryRenderedFeatures(event.point, {
-          layers: ['sheridan-traf']
-        });
-      
-        if (!features.length) return;
-      
-        const feature = features[0];
-        const popupContent = `
+        if (mapRef.current.getLayer('sheridan-traf')) {  // Check if layer exists
+          const features = mapRef.current.queryRenderedFeatures(event.point, {
+            layers: ['sheridan-traf']
+          });
+        
+          if (!features.length) return;
+        
+          const feature = features[0];
+          const popupContent = `
+          <div style="font-family: Arial, sans-serif; padding: 10px;">
+            <h3 style="color: #000000; margin: 0 0 8px 0; font-size: 16px;">
+              ${feature.properties.title || 'No Title'}
+            </h3>
+            
+            <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+              <strong>Category:</strong> ${feature.properties.category || 'N/A'}
+            </p>
+            
+            <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+              <strong>Location:</strong> ${feature.properties.location || 'N/A'}
+            </p>
+            
+            ${feature.properties.description ? `
+              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+                <strong>Description:</strong> ${feature.properties.description}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.timeslot ? `
+              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+                <strong>Hours:</strong> ${feature.properties.timeslot}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.state ? `
+              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+                <strong>State:</strong> ${feature.properties.state}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.link ? `
+              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+                <a href="${feature.properties.link}" target="_blank" style="color: #0066cc; text-decoration: none;">
+                  More Information →
+                </a>
+              </p>
+            ` : ''}
+          </div>
+        `;
+        
+          new mapboxgl.Popup({
+            offset: [0, -15],
+            maxWidth: '300px',
+            className: 'custom-popup'
+          })
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML(popupContent)
+            .addTo(mapRef.current);
+        }
+      });
+    
+      // Add click handler for HMC POIs
+      mapRef.current.on('click', (event) => {
+        if (mapRef.current.getLayer('sheridan-hmc')) {  // Check if layer exists
+          const features = mapRef.current.queryRenderedFeatures(event.point, {
+            layers: ['sheridan-hmc']
+          });
+        
+          if (!features.length) return;
+        
+          const feature = features[0];
+          const popupContent = `
           <div style="font-family: Arial, sans-serif; padding: 10px;">
             <h3 style="color: #000000; margin: 0 0 8px 0; font-size: 16px;">
               ${feature.properties.title || 'No Title'}
@@ -224,16 +287,18 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
           </div>
         `;
       
-        new mapboxgl.Popup({
-          offset: [0, -15],
-          maxWidth: '300px',
-          className: 'custom-popup'
-        })
-          .setLngLat(feature.geometry.coordinates)
-          .setHTML(popupContent)
-          .addTo(mapRef.current);
+        
+          new mapboxgl.Popup({
+            offset: [0, -15],
+            maxWidth: '300px',
+            className: 'custom-popup'
+          })
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML(popupContent)
+            .addTo(mapRef.current);
+        }
       });
-      
+
     });
 
     const setLoadingScreen = (show) => {
@@ -260,15 +325,36 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
     if (!mapRef.current || !isStyleLoaded) return;
     
     try {
-      mapRef.current.setFilter('sheridan-traf', [
-        'in',
-        ['get', 'category'],
-        ['literal', activeCategories]
-      ]);
+      // Check if layers exist before setting filters
+      const style = mapRef.current.getStyle();
+      const layers = style.layers.map(layer => layer.id);
+  
+      // Set filter for Trafalgar layer if it exists
+      if (layers.includes('sheridan-traf')) {
+        mapRef.current.setFilter('sheridan-traf', [
+          'in',
+          ['get', 'category'],
+          ['literal', activeCategories]
+        ]);
+      }
+  
+      // Set filter for HMC layer if it exists
+      if (layers.includes('sheridan-hmc')) {
+        mapRef.current.setFilter('sheridan-hmc', [
+          'in',
+          ['get', 'category'],
+          ['literal', activeCategories]
+        ]);
+      }
+  
+      // Debug log
+      console.log('Available layers:', layers);
+      
     } catch (error) {
       console.error('Error setting filter:', error);
     }
   };
+  
 
   // const toggleDayNight = () => {
   //   if (mapRef.current) {
