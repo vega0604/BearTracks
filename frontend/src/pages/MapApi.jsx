@@ -5,12 +5,15 @@ import SunCalc from 'suncalc';
 import submit_img from '@assets/icons/submit.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { askBruno } from '@requests/AskBruno';
+import LoadingScreen from './LoadingScreen';
+
 
 const MapComponent = () => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const [activeCategories, setActiveCategories] = useState(['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators']);
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
+  const [isMapLoaded, setIsMapLoaded] = useState(false); 
   const [isDaytime, setIsDaytime] = useState(true);
 
   // Function to check if current time is between sunrise and sunset
@@ -129,6 +132,9 @@ const MapComponent = () => {
               'fill-extrusion-opacity': 0.7  // Use a simple number for opacity
             }
           });
+          setIsMapLoaded(true);
+          setLoadingScreen(false);
+
 
           // Variable to store the ID of the currently clicked feature
           let clickedId = null;
@@ -258,6 +264,12 @@ const MapComponent = () => {
       
     });
 
+    const setLoadingScreen = (show) => {
+      const loadingScreen = document.querySelector('.loading-screen');
+      if (loadingScreen) {
+        loadingScreen.style.display = show ? 'flex' : 'none';
+      }
+    };
     return () => {
       if (mapRef.current) {
         mapRef.current.remove();
@@ -341,7 +353,7 @@ const MapComponent = () => {
   }, [messageHistory])
   return (
     <div>
-
+      {isMapLoaded === false && <LoadingScreen />}
       {/* Add toggle button for testing */}
       {/* <button
         onClick={toggleDayNight}
