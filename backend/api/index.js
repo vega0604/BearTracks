@@ -1,9 +1,9 @@
 // app.js
-require("module-alias/register");
+// require("module-alias/register");
 
 const express = require('express');
 const cors = require('cors');
-const gemini_router = require('@routers/GeminiRoutes');
+const gemini_router = require('./routers/GeminiRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -17,10 +17,8 @@ app.use('/api', gemini_router);
 const PORT = process.env.PORT || 3000;
 const ENVIRONMENT = process.env.ENVIRONMENT || 'dev';
 
-if (ENVIRONMENT == 'dev'){
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-}
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 module.exports = app;
