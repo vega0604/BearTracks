@@ -269,7 +269,13 @@
   align-self: stretch;
   border-bottom: 1px dashed var(--border);
   flex-wrap: wrap;
+  cursor: pointer;
   animation: fadeInUp 0.4s ease;
+  transition: padding-left .1s;
+}
+
+.expanded_landmark:hover {
+  padding-left: .5rem;
 }
 
 @keyframes fadeInUp {
