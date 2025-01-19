@@ -10,50 +10,7 @@ import bruno2d_dark from '@assets/home/bruno2d_dark.png';
 import bruno2d_light from '@assets/home/bruno2d_light.png';
 import stars from '@assets/home/stars.png';
 
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Stage } from '@react-three/drei';
-import * as THREE from 'three';
-
-let mouseX = 0;
-let mouseY = 0;
-
-function Bruno(props) {
-    const { scene, animations } = useGLTF(`./bruno.glb`);
-
-    let mixer;
-    // bruno default animation
-    if (animations.length) {
-        mixer = new THREE.AnimationMixer(scene);
-        animations.forEach(clip => {
-            const action = mixer.clipAction(clip)
-            action.play();
-        });
-    }
-
-    useFrame((state, delta) => {
-        mixer?.update(delta);
-        if (scene) {
-            scene.rotation.y += (mouseX / window.innerWidth * 5.5 / Math.PI + 0 - scene.rotation.y) * 0.05;
-            scene.rotation.x += (mouseY / window.innerHeight * 5.5 / Math.PI + 0 - scene.rotation.x) * 0.05;
-        }
-    });
-
-    return <primitive object={scene} scale={0.006} {...props} />;
-}
-
 const MapComponent = ({activeCategories, selectedLandmark}) => {
-  // for 3d model animations based on cursor position
-  const handleMouseMove = (event) => {
-    mouseX = event.clientX - window.innerWidth / 2;
-    mouseY = event.clientY - window.innerHeight / 2;
-  };
-  useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
@@ -442,13 +399,6 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
         <div id={styles.chat_container} tabIndex={1} data-opened={chatOpened} onClick={(e) => e.target.focus()} onFocus={() => setChatOpened(true)} onBlur={() => setChatOpened(false)}>
           <img src={stars} alt="stars" id={styles.stars} />
           <img src={bruno2d_dark} alt="Bruno" id={styles.bruno} />
-          <div id={styles.bee_canvas}>
-              <Canvas camera={{ fov: 20 }}>
-                  <Stage shadows={null} environment="apartment" intensity={0}>
-                      <Bruno />
-                  </Stage>
-              </Canvas>
-          </div>
           <h3>Ask Bruno</h3>
           <ul id={styles.message_history} ref={messageHistoryRef}>
             {messageHistory.map((item, i) => {

@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import jsconfigPaths from 'vite-jsconfig-paths';
 import { VitePWA } from 'vite-plugin-pwa';
 
-
 const manifestJSON = {
   manifest: {
     // caches the assets/icons mentioned (assets/* includes all the assets present in your src/ directory) 
