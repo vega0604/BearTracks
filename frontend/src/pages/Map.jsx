@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import useLocalStorage from "use-local-storage";
 import styles from '@css/map.module.css';
 import MapComponent from "@pages/MapApi";
 import light_paw from '@assets/logos/light_paw.svg';
@@ -79,7 +80,7 @@ const ExpandedLandmarkList = ({ selectedCategory }) => {
     const selectedData = trafalgar[0].landmarks[selectedCategory];
 
     if (!selectedData) {
-        return null; // or a loading indicator
+        return null;
     }
 
     return (
@@ -94,8 +95,19 @@ const ExpandedLandmarkList = ({ selectedCategory }) => {
 };
 
 function Map() {
+    const [theme, setTheme] = useLocalStorage("theme", "light");
+    
+    const toggleTheme = () =>{
+        setTheme(theme === "dark" ? "light": "dark");
+    };
+
+    useEffect(() => {
+        setTheme("dark");
+        document.body.setAttribute("data-theme", theme);
+    }, [theme]);
+
     return (
-        <section id={styles.map_section}>
+        <section id={styles.map_section} data-theme={theme}>
             <nav id={styles.nav_container}>
                 <div id={styles.header}>
                     <div id={styles.logo}>
