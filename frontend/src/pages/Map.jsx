@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, createContext } from 'react';
+import { useState, useEffect, useContext, createContext, useRef } from 'react';
 import useLocalStorage from "use-local-storage";
 import styles from '@css/map.module.css';
 import MapComponent from "@pages/MapApi";
@@ -227,17 +227,7 @@ function Map() {
     
     const [selectedLandmark, setSelectedLandmark] = useState(null);
     const [navOpened, setNavOpened] = useState(false);
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault();
-                setOpen((prev) => !prev);
-            }
-        };
-        document.addEventListener('keydown', handleKeyDown);
-        return () => document.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    const containerElement = useRef(null);
 
     return (
         <section id={styles.map_section} data-theme={theme}>
@@ -251,33 +241,37 @@ function Map() {
                         <h2>Trafalgar 🍯</h2>
                     </div>
                 </div>
-                <div id={styles.search_bar} onClick={() => setOpen(true)}>
-                    <input placeholder={open ? '' : "Search / Commands"} /> 
-                    <Command.Dialog
-                        open={open}
-                        onOpenChange={setOpen}
-                        label="Landmarks"
-                        id={styles.cmdk_dialog}
-                    >
-                        <Command.Input
-                            value={searchTerm}
-                            onValueChange={setSearchTerm}
-                            placeholder="Search / Commands"
-                            className={styles.cmdk_input}
-                        />
-                        <Command.List className={styles.cmdk_list}>
-                            <Command.Item className={styles.cmdk_list_item} onSelect={toggleTheme}>
-                                {theme == 'light'? '🌑 ':'🌞 '}
-                                Toggle theme
-                            </Command.Item>
-                            { filteredLandmarks.map((landmark, i) => (
-                                <Command.Item key={i} className={styles.cmdk_list_item} onSelect={() => setSelectedLandmark(landmark)}>
-                                    {landmark.title}
+                <div id={styles.search_bar_container} ref={containerElement}>
+                    <div id={styles.search_bar} onClick={() => setOpen(true)}>
+                        {open ? '': "Search..."}
+                        <Command.Dialog
+                            open={open}
+                            onOpenChange={setOpen}
+                            label="Landmarks"
+                            id={styles.cmdk_dialog}
+                            container={containerElement.current}
+                        >
+                                <Command.Input
+                                    value={searchTerm}
+                                    onValueChange={setSearchTerm}
+                                    placeholder="Search..."
+                                    className={styles.cmdk_input}
+                                />
+                            <Command.List className={styles.cmdk_list}>
+                                <Command.Item className={styles.cmdk_list_item} onSelect={toggleTheme}>
+                                    {theme == 'light'? '🌑 ':'🌞 '}
+                                    Toggle Theme
                                 </Command.Item>
-                            ))}
-                        </Command.List>
-                    </Command.Dialog>
-                    <img src={search_icon} alt="Search icon" />
+                                { filteredLandmarks.map((landmark, i) => (
+                                    <Command.Item key={i} className={styles.cmdk_list_item} onSelect={() => setSelectedLandmark(landmark)}>
+                                        {landmark.title}
+
+                                    </Command.Item>
+                                ))}
+                            </Command.List>
+                        </Command.Dialog>
+                        <img src={search_icon} alt="Search icon" />
+                    </div>
                 </div>
 
                 <div id={styles.options}>
