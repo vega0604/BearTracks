@@ -62,15 +62,16 @@ const LandmarkCategory = ({ category, data}) => {
     );
 };
 
-const LandmarkList = () => {
+const LandmarkList = ({activeCategories}) => {
+    const landmarks = Object.entries(trafalgar[0].landmarks).filter((entry) => activeCategories.includes(entry[0]));
     return (
         <div id={styles.landmarks_list}>
             <div className={styles.top_gradient} />
-            {Object.entries(trafalgar[0].landmarks).map(([category, data]) => (
+            {landmarks.map((item, i) => (
                 <LandmarkCategory
-                    key={category}
-                    category={category}
-                    data={data}
+                    key={i}
+                    category={item[0]}
+                    data={item[1]}
                 />
             ))}
             <div className={styles.bottom_gradient} />
@@ -193,7 +194,7 @@ function Map() {
                 </div>
                 <div id={styles.landmarks_list_container}>
                     <LandmarkContext.Provider value={{setSelectedLandmark: setSelectedLandmark}}>
-                        <LandmarkList />
+                        <LandmarkList activeCategories={activeCategories} />
                     </LandmarkContext.Provider>
                 </div>
                 <div id={styles.bottom_gradient}/>

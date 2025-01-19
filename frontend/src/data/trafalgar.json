@@ -361,7 +361,7 @@
                     }
                 ]
             },
-            "arts_culture": {
+            "arts_and_culture": {
                 "color": "#e68fac",
                 "emoji": "🎭",
                 "spots": [
@@ -456,7 +456,7 @@
                     }
                 ]
             },
-            "studyspot": {
+            "study_spots": {
                 "color": "#b0e0e6",
                 "emoji": "📚",
                 "spots": [
