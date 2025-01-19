@@ -334,6 +334,11 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
         .setHTML(popupContent)
         .addTo(mapRef.current);
 
+      mapRef.current.flyTo({
+        center: coordinates,
+        zoom: 17,
+        duration: 1000
+      });
     }
   }, [selectedLandmark]);
 
