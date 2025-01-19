@@ -1,0 +1,139 @@
+#loading_screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1A1A1A;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#loading_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #1A1A1A;
+}
+
+#loading_logo {
+    width: 20rem;
+    height: auto;
+    padding: 0.5rem;
+}
+
+.lds_default {
+    color: #a0a0a0;
+}
+
+.lds_default,
+.lds_default div {
+    box-sizing: border-box;
+}
+
+.lds_default {
+    display: inline-block;
+    position: relative;
+    width: 53.33px; 
+    height: 53.33px; 
+}
+
+.lds_default div {
+    position: absolute;
+    width: 4.27px; 
+    height: 4.27px; 
+    background: currentColor;
+    border-radius: 50%;
+    animation: lds_default 1.2s linear infinite;
+}
+
+.lds_default div:nth-child(1) {
+    animation-delay: 0s;
+    top: 24.53px; 
+    left: 44.16px; 
+}
+
+.lds_default div:nth-child(2) {
+    animation-delay: -0.1s;
+    top: 14.72px; 
+    left: 41.53px; 
+}
+
+.lds_default div:nth-child(3) {
+    animation-delay: -0.2s;
+    top: 7.53px;  
+    left: 34.35px; 
+}
+
+.lds_default div:nth-child(4) {
+    animation-delay: -0.3s;
+    top: 4.91px; 
+    left: 24.53px; 
+}
+
+.lds_default div:nth-child(5) {
+    animation-delay: -0.4s;
+    top: 7.53px;  
+    left: 14.72px; 
+}
+
+.lds_default div:nth-child(6) {
+    animation-delay: -0.5s;
+    top: 14.72px; 
+    left: 7.53px;  
+}
+
+.lds_default div:nth-child(7) {
+    animation-delay: -0.6s;
+    top: 24.53px; 
+    left: 4.91px; 
+}
+
+.lds_default div:nth-child(8) {
+    animation-delay: -0.7s;
+    top: 34.35px; 
+    left: 7.53px;  
+}
+
+.lds_default div:nth-child(9) {
+    animation-delay: -0.8s;
+    top: 41.53px; 
+    left: 14.72px; 
+}
+
+.lds_default div:nth-child(10) {
+    animation-delay: -0.9s;
+    top: 44.16px;
+    left: 24.53px; 
+}
+
+.lds_default div:nth-child(11) {
+    animation-delay: -1s;
+    top: 41.53px; 
+    left: 34.35px; 
+}
+
+.lds_default div:nth-child(12) {
+    animation-delay: -1.1s;
+    top: 34.35px; 
+    left: 41.53px; 
+}
+
+@keyframes lds_default {
+
+    0%,
+    20%,
+    80%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(2);
+    }
+}

@@ -5,10 +5,14 @@ import SunCalc from 'suncalc';
 import submit_img from '@assets/icons/submit.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { askBruno } from '@requests/AskBruno';
+import LoadingScreen from './LoadingScreen';
+
+
 const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
+  const [isMapLoaded, setIsMapLoaded] = useState(false); 
   const [isDaytime, setIsDaytime] = useState(true);
 
   // Function to check if current time is between sunrise and sunset
@@ -16,21 +20,6 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
     const times = SunCalc.getTimes(new Date(), 43.468, -79.700); // Sheridan coordinates
     const now = new Date();
     return now > times.sunrise && now < times.sunset;
-  };
-
-  // Function to update map style based on time
-  const updateMapStyle = () => {
-    if (!mapRef.current) return;
-
-    const isDaylight = checkDayTime();
-    setIsDaytime(isDaylight);
-
-    // Switch between light and dark styles
-    const newStyle = isDaylight
-      ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc' // your day style
-      : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4'; // create and add your dark style ID
-
-    mapRef.current.setStyle(newStyle);
   };
 
   useEffect(() => {
@@ -41,29 +30,15 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
       ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc'
       : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4';
 
-
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: initialStyle,
       center: [-79.700, 43.468],
       zoom: 17,
       pitch: 40,
-      maxZoom: 19, // Add this to limit zoom
+      maxZoom: 19, 
       minZoom: 14
     });
-
-    // Set up time checking interval
-    const timeCheckInterval = setInterval(() => {
-      updateMapStyle();
-    }, 60000); // Check every minute
-
-    // Add debug info for sunrise/sunset times
-    const times = SunCalc.getTimes(new Date(), 43.468, -79.700);
-    console.log('Sunrise:', times.sunrise);
-    console.log('Sunset:', times.sunset);
-    console.log('Current time:', new Date());
-    console.log('Is daytime:', checkDayTime());
-
 
     // Wait for style to load before setting up interactions
     mapRef.current.on('style.load', () => {
@@ -107,6 +82,7 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
             'id': 'room-extrusion',
             'type': 'fill-extrusion',
             'source': 'room-data',
+            'slot': 'middle',
             'paint': {
               'fill-extrusion-color': [
                 'case',
@@ -127,6 +103,9 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
               'fill-extrusion-opacity': 0.7  // Use a simple number for opacity
             }
           });
+          setIsMapLoaded(true);
+          setLoadingScreen(false);
+
 
           // Variable to store the ID of the currently clicked feature
           let clickedId = null;
@@ -256,11 +235,16 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
       
     });
 
+    const setLoadingScreen = (show) => {
+      const loadingScreen = document.querySelector('.loading-screen');
+      if (loadingScreen) {
+        loadingScreen.style.display = show ? 'flex' : 'none';
+      }
+    };
     return () => {
       if (mapRef.current) {
         mapRef.current.remove();
       }
-      clearInterval(timeCheckInterval);
     };
   }, []);
 
@@ -288,8 +272,8 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
   // const toggleDayNight = () => {
   //   if (mapRef.current) {
   //     const newStyle = isDaytime
-  //       ? 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c'
-  //       : 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0';
+  //       ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc'
+  //       : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4';
       
   //     mapRef.current.setStyle(newStyle);
   //     setIsDaytime(!isDaytime);
@@ -330,7 +314,7 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
   }, [messageHistory])
   return (
     <div>
-
+      {isMapLoaded === false && <LoadingScreen />}
       {/* Add toggle button for testing */}
       {/* <button
         onClick={toggleDayNight}
