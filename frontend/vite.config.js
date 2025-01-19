@@ -27,7 +27,9 @@ const manifestJSON = {
   workbox: {
     // defining cached files formats
     globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
-    navigateFallback: 'index.html', // Fallback to index.html for unmatched routes
+    navigateFallback: 'index.html',
+    maximumFileSizeToCacheInBytes: 5000000, // 5 MB
+    // Fallback to index.html for unmatched routes
   },
   registerType: 'autoUpdate',
   strategies: 'generateSW'

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 
 function Landing() {
-    const [theme, setTheme] = useLocalStorage("theme", "light");
+    const [theme, setTheme] = useLocalStorage("theme", "dark");
     
     const toggleTheme = () =>{
         setTheme(theme === "dark" ? "light": "dark");
@@ -16,7 +16,7 @@ function Landing() {
     const {loginWithRedirect} = useAuth0();
     return (
         <>
-        <button onClick={() => loginWithRedirect()}>Login</button>
+            <button onClick={() => loginWithRedirect()}>Login</button>
         </>
     );
 }

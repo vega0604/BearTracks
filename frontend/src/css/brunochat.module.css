@@ -35,6 +35,10 @@
     }
 }
 
+[data-theme='light'] #bruno {
+    filter: invert(0)!important;
+}
+
 #bruno {
     position: absolute;
     bottom: 0;

@@ -241,7 +241,7 @@ function Map() {
                     </div>
                 </div>
                 <div id={styles.search_bar} onClick={() => setOpen(true)}>
-                    <input placeholder={open ? '' : "Search..."} /> 
+                    <input placeholder={open ? '' : "Search / Commands"} /> 
                     <Command.Dialog
                         open={open}
                         onOpenChange={setOpen}
@@ -251,18 +251,17 @@ function Map() {
                         <Command.Input
                             value={searchTerm}
                             onValueChange={setSearchTerm}
-                            placeholder="Search..."
+                            placeholder="Search / Commands"
                             className={styles.cmdk_input}
                         />
                         <Command.List className={styles.cmdk_list}>
                             <Command.Item className={styles.cmdk_list_item} onSelect={toggleTheme}>
                                 {theme == 'light'? '🌑 ':'🌞 '}
-                                Toggle Theme
+                                Toggle theme
                             </Command.Item>
                             { filteredLandmarks.map((landmark, i) => (
                                 <Command.Item key={i} className={styles.cmdk_list_item} onSelect={() => setSelectedLandmark(landmark)}>
                                     {landmark.title}
-
                                 </Command.Item>
                             ))}
                         </Command.List>

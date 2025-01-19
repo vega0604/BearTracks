@@ -27,6 +27,10 @@
     padding: 0.5rem;
 }
 
+[data-theme='light'] #loading_logo {
+    filter: invert(0)!important;
+}
+
 .lds_default {
     color: #a0a0a0;
 }
