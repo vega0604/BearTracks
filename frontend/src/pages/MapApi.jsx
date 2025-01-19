@@ -155,17 +155,17 @@ const MapComponent = () => {
               );
 
               // Optional: Add popup with information
-              new mapboxgl.Popup()
-                .setLngLat(e.lngLat)
-                .setHTML(`
-                  <div style="padding: 10px;">
-                    <h3>${clickedFeature.properties.name || 'Area'}</h3>
-                    ${clickedFeature.properties.description ? 
-                      `<p>${clickedFeature.properties.description}</p>` : 
-                      ''}
-                  </div>
-                `)
-                .addTo(mapRef.current);
+              // new mapboxgl.Popup()
+              //   .setLngLat(e.lngLat)
+              //   .setHTML(`
+              //     <div style="padding: 10px;">
+              //       <h3>${clickedFeature.properties.name || 'Area'}</h3>
+              //       ${clickedFeature.properties.description ? 
+              //         `<p>${clickedFeature.properties.description}</p>` : 
+              //         ''}
+              //     </div>
+              //   `)
+              //   .addTo(mapRef.current);
             }
           });
 
