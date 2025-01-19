@@ -8,7 +8,7 @@ const manifestJSON = {
     // caches the assets/icons mentioned (assets/* includes all the assets present in your src/ directory) 
     name: 'Bear Tracks',
     short_name: 'BearTracks',
-    start_url: '/',
+    start_url: '/map',
     background_color: '#ffffff',
     theme_color: '#000000',
     icons: [
