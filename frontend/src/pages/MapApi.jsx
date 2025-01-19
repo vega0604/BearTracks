@@ -38,7 +38,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
       center: [-79.700, 43.468],
       zoom: 17,
       pitch: 40,
-      maxZoom: 19, 
+      maxZoom: 30, 
       minZoom: 14
     });
 
