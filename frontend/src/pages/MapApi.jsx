@@ -394,7 +394,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
       
         <div id={styles.chat_container} tabIndex={1} data-opened={chatOpened} onClick={(e) => e.target.focus()} onFocus={() => setChatOpened(true)} onBlur={() => setChatOpened(false)}>
           <img src={stars} alt="stars" id={styles.stars} />
-          {/* <img src={bruno2d_dark} alt="Bruno" id={styles.bruno} /> */}
+          <img src={bruno2d_dark} alt="Bruno" id={styles.bruno} />
           <h3>Ask Bruno</h3>
           <ul id={styles.message_history} ref={messageHistoryRef}>
             {messageHistory.map((item, i) => {
@@ -406,7 +406,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
           </ul>
           <div id={styles.form_container}>
             <form onSubmit={handleSubmit} id={styles.chat_form}>
-              <input type="text" name="question" placeholder='ask a question...' autoComplete='off'/>
+              <input type="text" name="question" placeholder='Ask a question' autoComplete='off'/>
               <button type="submit"><img src={submit_img} alt="submit" /></button>
             </form>
           </div>
