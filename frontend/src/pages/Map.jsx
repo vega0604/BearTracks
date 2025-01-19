@@ -63,24 +63,79 @@ const LandmarkCategory = ({ category, data}) => {
     );
 };
 
-const LandmarkList = ({activeCategories}) => {
-    const landmarks = Object.entries(trafalgar[0].landmarks).filter((entry) => activeCategories.includes(entry[0]));
+const LandmarkList = ({ activeCategories, sortBy }) => {
+    const selectedLandmarks = Object.entries(trafalgar[0].landmarks)
+      .filter(([category, _]) => activeCategories.includes(category));
+  
+    const sortedLandmarks = sortLandmarks(selectedLandmarks, sortBy);
+  
     return (
-        <div id={styles.landmarks_list}>
-            <div className={styles.top_gradient} />
-            {landmarks.map((item, i) => (
-                <LandmarkCategory
-                    key={i}
-                    category={item[0]}
-                    data={item[1]}
-                />
-            ))}
-            <div className={styles.bottom_gradient} />
-        </div>
+      <div id={styles.landmarks_list}>
+        <div className={styles.top_gradient} />
+        {sortedLandmarks.map(([category, data]) => (
+          <LandmarkCategory
+            key={category}
+            category={category}
+            data={data}
+          />
+        ))}
+        <div className={styles.bottom_gradient} />
+      </div>
     );
-};
+  };
+  
+  function sortLandmarks(landmarks, sortBy) {
+    switch (sortBy) {
+      case 'Name (A-Z)':
+        return landmarks.slice().sort((a, b) => a[0].localeCompare(b[0]));
+      case 'Name (Z-A)':
+        return landmarks.slice().sort((a, b) => b[0].localeCompare(a[0]));
+      case 'Locations':
+        return landmarks.slice().sort((a, b) => b[1].spots.length - a[1].spots.length);
+      default:
+        return landmarks;
+    }
+  }
 
 function Map() {
+    const [sortBy, setSortBy] = useState('Locations');
+
+    const handleSortChange = (e) => {
+        setSortBy(e.target.value);
+    };
+
+    const sortOptions = [
+        { value: 'Name (A-Z)', label: 'Name (A-Z)' },
+        { value: 'Name (Z-A)', label: 'Name (Z-A)' },
+        { value: 'Locations', label: 'Number of Locations' },
+    ];
+      const sortContent = (
+        <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {sortOptions.map(option => (
+              <label
+                key={option.value}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  userSelect: 'none'
+                }}
+              >
+                <input
+                  type="radio"
+                  value={option.value}
+                  checked={sortBy === option.value}
+                  onChange={handleSortChange}
+                  style={{ marginRight: '8px' }}
+                />
+                {option.label}
+              </label>
+            ))}
+          </div>
+        </div>
+      );
+
     const [theme, setTheme] = useLocalStorage("theme", "light");
     const [open, setOpen] = useState(false);
 
@@ -222,7 +277,9 @@ function Map() {
                     </div>
                     <div className={styles.option}>
                         <label>Sort by:</label>
-                        <div>Name <img src={dropdown} /></div>
+                        <Popover content={sortContent} title="Sort Options" trigger="click">
+                            <Button className={styles.option}>{sortBy.replace(/_/g, ' ')}</Button> 
+                        </Popover>
                     </div>
                     <div id={styles.filters_container} className={styles.option}>
                         <div><img src={filters} alt="filters icon" /> Filters</div>
@@ -230,7 +287,7 @@ function Map() {
                 </div>
                 <div id={styles.landmarks_list_container}>
                     <LandmarkContext.Provider value={{setSelectedLandmark: setSelectedLandmark}}>
-                        <LandmarkList activeCategories={activeCategories} />
+                        <LandmarkList activeCategories={activeCategories} sortBy={sortBy}/>
                     </LandmarkContext.Provider>
                 </div>
                 <div id={styles.bottom_gradient} />
