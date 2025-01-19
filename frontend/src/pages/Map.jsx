@@ -37,11 +37,14 @@ const LandmarkCategory = ({ category, data, onCategoryClick }) => {
             </div>
             {expanded && (
                 <div className={styles.expanded_landmarks}>
-                    {data.spots.map((spot, index) => (
-                        <p className={styles.expanded_landmark} key={index}>
-                            {spot.title} <span>· {spot.location}</span>
-                        </p>
-                    ))}
+                    {data.spots
+                        .slice()
+                        .sort((a, b) => a.title.localeCompare(b.title))
+                        .map((spot, index) => (
+                            <p className={styles.expanded_landmark} key={index}>
+                                {spot.title} <span>· {spot.location}</span>
+                            </p>
+                        ))}
                 </div>
             )}
         </div>
