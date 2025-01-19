@@ -120,7 +120,7 @@ function Map() {
                     onChange={() => toggleCategory(category)}
                     style={{ marginRight: '8px' }}
                   />
-                  {category}
+                  {category.charAt(0).toUpperCase() + category.slice(1).replace(/_/g, ' ')}
                 </label>
               ))}
             </div>
