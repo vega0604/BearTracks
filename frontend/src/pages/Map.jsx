@@ -77,24 +77,6 @@ const LandmarkList = ({ onCategoryClick }) => {
     );
 };
 
-const ExpandedLandmarkList = ({ selectedCategory }) => {
-    const selectedData = trafalgar[0].landmarks[selectedCategory];
-
-    if (!selectedData) {
-        return null;
-    }
-
-    return (
-        <div className={styles.expanded_landmarks_container}>
-            {selectedData.spots.map((spot, index) => (
-                <div className={styles.expanded_landmark} key={index}>
-                    {spot.title}
-                </div>
-            ))}
-        </div>
-    );
-};
-
 function Map() {
     const [theme, setTheme] = useLocalStorage("theme", "light");
     
@@ -138,7 +120,7 @@ function Map() {
                     onChange={() => toggleCategory(category)}
                     style={{ marginRight: '8px' }}
                   />
-                  {category}
+                  {category.charAt(0).toUpperCase() + category.slice(1).replace(/_/g, ' ')}
                 </label>
               ))}
             </div>
@@ -194,8 +176,8 @@ function Map() {
                 <div id={styles.options}>
                     <div className={styles.option}>
                         <label>Landmarks:</label>
-                        <Popover content={content} title="Filter Categories" trigger="click">
-                            <Button className={styles.option}>Selected</Button>
+                        <Popover content={content} title="Landmark Categories" trigger="click">
+                            <Button className={styles.option}>{activeCategories.length} selected</Button>
                         </Popover>
                     </div>
                     <div className={styles.option}>

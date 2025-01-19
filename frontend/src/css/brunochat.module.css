@@ -1,4 +1,3 @@
-
 #chat_container {
     position: absolute;
     right: 1rem;
@@ -15,6 +14,7 @@
     align-items: flex-start;
     gap: 5px;
 }
+
 #chat_container[data-opened=true] {
 
     min-height: 15rem;
