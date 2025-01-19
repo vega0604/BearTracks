@@ -17,21 +17,6 @@ const MapComponent = () => {
     return now > times.sunrise && now < times.sunset;
   };
 
-  // Function to update map style based on time
-  const updateMapStyle = () => {
-    if (!mapRef.current) return;
-
-    const isDaylight = checkDayTime();
-    setIsDaytime(isDaylight);
-
-    // Switch between light and dark styles
-    const newStyle = isDaylight
-      ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc' // your day style
-      : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4'; // create and add your dark style ID
-
-    mapRef.current.setStyle(newStyle);
-  };
-
   useEffect(() => {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_KEY;
 
@@ -40,29 +25,15 @@ const MapComponent = () => {
       ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc'
       : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4';
 
-
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: initialStyle,
       center: [-79.700, 43.468],
       zoom: 17,
       pitch: 40,
-      maxZoom: 19, // Add this to limit zoom
+      maxZoom: 19, 
       minZoom: 14
     });
-
-    // Set up time checking interval
-    const timeCheckInterval = setInterval(() => {
-      updateMapStyle();
-    }, 60000); // Check every minute
-
-    // Add debug info for sunrise/sunset times
-    const times = SunCalc.getTimes(new Date(), 43.468, -79.700);
-    console.log('Sunrise:', times.sunrise);
-    console.log('Sunset:', times.sunset);
-    console.log('Current time:', new Date());
-    console.log('Is daytime:', checkDayTime());
-
 
     // Wait for style to load before setting up interactions
     mapRef.current.on('style.load', () => {
@@ -106,6 +77,7 @@ const MapComponent = () => {
             'id': 'room-extrusion',
             'type': 'fill-extrusion',
             'source': 'room-data',
+            'slot': 'middle',
             'paint': {
               'fill-extrusion-color': [
                 'case',
@@ -259,7 +231,6 @@ const MapComponent = () => {
       if (mapRef.current) {
         mapRef.current.remove();
       }
-      clearInterval(timeCheckInterval);
     };
   }, []);
 
@@ -296,8 +267,8 @@ const MapComponent = () => {
   // const toggleDayNight = () => {
   //   if (mapRef.current) {
   //     const newStyle = isDaytime
-  //       ? 'mapbox://styles/brandynsudjito/cm62rxv5a005501s61hay352c'
-  //       : 'mapbox://styles/brandynsudjito/cm62mfaq300em01s2cxa19qk0';
+  //       ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc'
+  //       : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4';
       
   //     mapRef.current.setStyle(newStyle);
   //     setIsDaytime(!isDaytime);
