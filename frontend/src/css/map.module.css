@@ -42,6 +42,12 @@
   #nav_container[data-opened=true]{
     height: 85%;
   }
+
+  #options {
+    justify-content: flex-start !important;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
 }
 
 #header {
