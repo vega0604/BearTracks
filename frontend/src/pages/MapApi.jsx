@@ -351,6 +351,9 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
   async function handleSubmit(e){
     e.preventDefault();
     const question = e.target.question.value;
+    if (question.trim() === ''){
+      return;
+    }
     let messages = messageHistory;
     messages.push({role: 'user', message: question})
     setMessageHistory(messages);

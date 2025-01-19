@@ -140,14 +140,10 @@ function Map() {
     const [open, setOpen] = useState(false);
 
     const [searchTerm, setSearchTerm] = useState('');
-    console.log(open)
 
-    const landmarks = Object.values(trafalgar[0].landmarks)
-        .flatMap((category) => category.spots)
-        .map((spot) => ({ name: spot.title, category: spot.category, location: spot.location }));
-
+    const landmarks = Object.values(trafalgar[0].landmarks).flatMap((category) => category.spots);
     const filteredLandmarks = landmarks.filter((landmark) =>
-        landmark.name.toLowerCase().includes(searchTerm.toLowerCase())
+        landmark.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
 
@@ -228,11 +224,13 @@ function Map() {
         </div>
     );
 
+    
     const [selectedLandmark, setSelectedLandmark] = useState(null);
     const [navOpened, setNavOpened] = useState(false);
+
     return (
         <section id={styles.map_section} data-theme={theme}>
-            <nav id={styles.nav_container} data-opened={navOpened} tabIndex="0" onClick={(e) => e.target.focus()} onFocus={() => setNavOpened(true)} onBlur={() => setNavOpened(false)}>
+            <nav id={styles.nav_container} data-opened={navOpened} tabIndex="0" onClick={(e) => e.target.focus()} onFocus={() => setNavOpened(true)}>
                 <div id={styles.header}>
                     <div id={styles.logo}>
                         <img src={light_paw} alt="Paw icon" />
@@ -257,9 +255,13 @@ function Map() {
                             className={styles.cmdk_input}
                         />
                         <Command.List className={styles.cmdk_list}>
-                            { filteredLandmarks.map((landmark) => (
-                                <Command.Item key={landmark.name} className={styles.cmdk_list_item}>
-                                    {landmark.name}
+                            <Command.Item className={styles.cmdk_list_item} onSelect={toggleTheme}>
+                                {theme == 'light'? '🌑 ':'🌞 '}
+                                Toggle Theme
+                            </Command.Item>
+                            { filteredLandmarks.map((landmark, i) => (
+                                <Command.Item key={i} className={styles.cmdk_list_item} onSelect={() => setSelectedLandmark(landmark)}>
+                                    {landmark.title}
 
                                 </Command.Item>
                             ))}
@@ -292,7 +294,7 @@ function Map() {
                 </div>
                 <div id={styles.bottom_gradient} />
             </nav>
-            <div id={styles.map_wrapper}>
+            <div id={styles.map_wrapper} tabIndex="0" onClick={(e) => e.target.focus()} onFocus={() => setNavOpened(false)}>
                 <div id={styles.map_container}>
                     <MapComponent activeCategories={activeCategories} selectedLandmark={selectedLandmark} />
                 </div>
