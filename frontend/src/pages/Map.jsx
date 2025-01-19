@@ -86,14 +86,14 @@ const LandmarkList = ({ activeCategories, sortBy }) => {
   
   function sortLandmarks(landmarks, sortBy) {
     switch (sortBy) {
-      case 'Name (A-Z)':
-        return landmarks.slice().sort((a, b) => a[0].localeCompare(b[0]));
-      case 'Name (Z-A)':
-        return landmarks.slice().sort((a, b) => b[0].localeCompare(a[0]));
-      case 'Locations':
-        return landmarks.slice().sort((a, b) => b[1].spots.length - a[1].spots.length);
-      default:
-        return landmarks;
+        case 'Locations':
+            return landmarks.slice().sort((a, b) => b[1].spots.length - a[1].spots.length);
+        case 'Name (A-Z)':
+            return landmarks.slice().sort((a, b) => a[0].localeCompare(b[0]));
+        case 'Name (Z-A)':
+            return landmarks.slice().sort((a, b) => b[0].localeCompare(a[0]));
+        default:
+            return landmarks;
     }
   }
 
@@ -105,9 +105,9 @@ function Map() {
     };
 
     const sortOptions = [
+        { value: 'Locations', label: 'Number of Locations' },
         { value: 'Name (A-Z)', label: 'Name (A-Z)' },
         { value: 'Name (Z-A)', label: 'Name (Z-A)' },
-        { value: 'Locations', label: 'Number of Locations' },
     ];
       const sortContent = (
         <div>
@@ -278,7 +278,7 @@ function Map() {
                     <div className={styles.option}>
                         <label>Sort by:</label>
                         <Popover content={sortContent} title="Sort Options" trigger="click">
-                            <Button className={styles.option}>{sortBy.replace(/_/g, ' ')}</Button> 
+                            <Button className={styles.option}>{sortBy}</Button> 
                         </Popover>
                     </div>
                     <div id={styles.filters_container} className={styles.option}>
