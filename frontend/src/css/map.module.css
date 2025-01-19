@@ -118,6 +118,10 @@
   color: var(--light_75);
 }
 
+#search_bar input:focus {
+  outline: none;
+}
+
 #search_bar img {
   padding-inline: 1.5rem;
   cursor: pointer;
@@ -147,7 +151,7 @@
   box-sizing: border-box;
   border-radius: 0.9375rem;
   padding-left: 1.5rem;
-  color: aqua;
+  color: var(--light);
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
@@ -171,7 +175,7 @@
   width: 101%;
   height: 15rem;
   background-color: var(--dark);
-  color: white;
+  color: var(--light);
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--light_75) var(--dark);
