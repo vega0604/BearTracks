@@ -289,74 +289,52 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
   ])
 
   useEffect(() => {
-      function toggleLandmark(){
-        console.log(selectedLandmark);
-        const point = mapRef.current.project(selectedLandmark.coordinates);
-        console.log(point);
-        const features = mapRef.current.queryRenderedFeatures(point, {
-          layers: ['sheridan-traf']
-        });
-        console.log(features);
+      if (selectedLandmark && mapRef.current) {
+      const coordinates = [selectedLandmark.coordinates[1], selectedLandmark.coordinates[0]]; 
       
-        if (!features.length) return;
-      
-        const feature = features[0];
-        const popupContent = `
-          <div style="font-family: Arial, sans-serif; padding: 10px;">
-            <h3 style="color: #000000; margin: 0 0 8px 0; font-size: 16px;">
-              ${feature.properties.title || 'No Title'}
-            </h3>
-            
+      const popupContent = `
+        <div style="font-family: Arial, sans-serif; padding: 10px;">
+          <h3 style="color: #000000; margin: 0 0 8px 0; font-size: 16px;">
+            ${selectedLandmark.title || 'No Title'}
+          </h3>
+          
+          <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+            <strong>Category:</strong> ${selectedLandmark.category || 'N/A'}
+          </p>
+          
+          <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+            <strong>Location:</strong> ${selectedLandmark.location || 'N/A'}
+          </p>
+          
+          ${selectedLandmark.description ? `
             <p style="color: #666666; margin: 4px 0; font-size: 14px;">
-              <strong>Category:</strong> ${feature.properties.category || 'N/A'}
+              <strong>Description:</strong> ${selectedLandmark.description}
             </p>
-            
+          ` : ''}
+          
+          ${selectedLandmark.timeslot ? `
             <p style="color: #666666; margin: 4px 0; font-size: 14px;">
-              <strong>Location:</strong> ${feature.properties.location || 'N/A'}
+              <strong>Hours:</strong> ${selectedLandmark.timeslot}
             </p>
-            
-            ${feature.properties.description ? `
-              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
-                <strong>Description:</strong> ${feature.properties.description}
-              </p>
-            ` : ''}
-            
-            ${feature.properties.timeslot ? `
-              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
-                <strong>Hours:</strong> ${feature.properties.timeslot}
-              </p>
-            ` : ''}
-            
-            ${feature.properties.state ? `
-              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
-                <strong>State:</strong> ${feature.properties.state}
-              </p>
-            ` : ''}
-            
-            ${feature.properties.link ? `
-              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
-                <a href="${feature.properties.link}" target="_blank" style="color: #0066cc; text-decoration: none;">
-                  More Information →
-                </a>
-              </p>
-            ` : ''}
-          </div>
-        `;
-      
-        new mapboxgl.Popup({
-          offset: [0, -15],
-          maxWidth: '300px',
-          className: 'custom-popup'
-        })
-          .setLngLat(feature.geometry.coordinates)
-          .setHTML(popupContent)
-          .addTo(mapRef.current);
+          ` : ''}
+        </div>
+      `;
+
+      const existingPopups = document.getElementsByClassName('mapboxgl-popup');
+      if (existingPopups.length) {
+        Array.from(existingPopups).forEach(popup => popup.remove());
       }
 
-      console.log(selectedLandmark)
-      if (mapRef.current.loaded() && selectedLandmark != null){
-        toggleLandmark();
-      }
+      new mapboxgl.Popup({
+        offset: [0, -15],
+        maxWidth: '300px',
+        className: 'custom-popup'
+      })
+        .setLngLat(coordinates)
+        .setHTML(popupContent)
+        .addTo(mapRef.current);
+
+    }
   }, [selectedLandmark]);
 
   const [awaitingResponse, setAwaitingResponse] = useState(false);
