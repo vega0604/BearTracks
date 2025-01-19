@@ -8,7 +8,7 @@ import { askBruno } from '@requests/AskBruno';
 import LoadingScreen from './LoadingScreen';
 
 
-const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
+const MapComponent = ({activeCategories, selectedLandmark}) => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
@@ -173,6 +173,7 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
         .catch(err => console.error('Error loading GeoJSON:', err));
 
       // Add click handler
+      
       mapRef.current.on('click', (event) => {
         const features = mapRef.current.queryRenderedFeatures(event.point, {
           layers: ['sheridan-traf']
@@ -286,6 +287,77 @@ const MapComponent = ({activeCategories, setActiveCategories, categories}) => {
       message: 'Ask me anything about Sheridan!'
     }
   ])
+
+  useEffect(() => {
+      function toggleLandmark(){
+        console.log(selectedLandmark);
+        const point = mapRef.current.project(selectedLandmark.coordinates);
+        console.log(point);
+        const features = mapRef.current.queryRenderedFeatures(point, {
+          layers: ['sheridan-traf']
+        });
+        console.log(features);
+      
+        if (!features.length) return;
+      
+        const feature = features[0];
+        const popupContent = `
+          <div style="font-family: Arial, sans-serif; padding: 10px;">
+            <h3 style="color: #000000; margin: 0 0 8px 0; font-size: 16px;">
+              ${feature.properties.title || 'No Title'}
+            </h3>
+            
+            <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+              <strong>Category:</strong> ${feature.properties.category || 'N/A'}
+            </p>
+            
+            <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+              <strong>Location:</strong> ${feature.properties.location || 'N/A'}
+            </p>
+            
+            ${feature.properties.description ? `
+              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+                <strong>Description:</strong> ${feature.properties.description}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.timeslot ? `
+              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+                <strong>Hours:</strong> ${feature.properties.timeslot}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.state ? `
+              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+                <strong>State:</strong> ${feature.properties.state}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.link ? `
+              <p style="color: #666666; margin: 4px 0; font-size: 14px;">
+                <a href="${feature.properties.link}" target="_blank" style="color: #0066cc; text-decoration: none;">
+                  More Information →
+                </a>
+              </p>
+            ` : ''}
+          </div>
+        `;
+      
+        new mapboxgl.Popup({
+          offset: [0, -15],
+          maxWidth: '300px',
+          className: 'custom-popup'
+        })
+          .setLngLat(feature.geometry.coordinates)
+          .setHTML(popupContent)
+          .addTo(mapRef.current);
+      }
+
+      console.log(selectedLandmark)
+      if (mapRef.current.loaded() && selectedLandmark != null){
+        toggleLandmark();
+      }
+  }, [selectedLandmark]);
 
   const [awaitingResponse, setAwaitingResponse] = useState(false);
 

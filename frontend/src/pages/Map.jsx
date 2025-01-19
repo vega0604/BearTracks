@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, createContext } from 'react';
 import useLocalStorage from "use-local-storage";
 import styles from '@css/map.module.css';
 import MapComponent from "@pages/MapApi";
@@ -10,14 +10,16 @@ import new_tab_arrow from '@assets/icons/new_tab_arrow.svg';
 import trafalgar from '@data/trafalgar.json';
 import {Popover, Button} from "antd";
 
-const LandmarkCategory = ({ category, data, onCategoryClick }) => {
+const LandmarkContext = createContext(null);
+
+const LandmarkCategory = ({ category, data}) => {
+    const {setSelectedLandmark} = useContext(LandmarkContext);
     const numSpots = data.spots.length;
     const numSpotsWithLinks = data.spots.filter((spot) => spot.link).length;
     const [expanded, setExpanded] = useState(false);
 
     const handleClick = () => {
         setExpanded(!expanded);
-        onCategoryClick(category);
     };
 
     return (
@@ -44,7 +46,7 @@ const LandmarkCategory = ({ category, data, onCategoryClick }) => {
                         .slice()
                         .sort((a, b) => a.title.localeCompare(b.title))
                         .map((spot, index) => (
-                            <div className={styles.expanded_landmark} key={index}>
+                            <div className={styles.expanded_landmark} key={index} onClick={() => setSelectedLandmark(spot)}>
                                 <p>{spot.title} <span>· {spot.location}</span></p>
                                 {spot.link && (
                                     console.log(spot.link),
@@ -60,7 +62,7 @@ const LandmarkCategory = ({ category, data, onCategoryClick }) => {
     );
 };
 
-const LandmarkList = ({ onCategoryClick }) => {
+const LandmarkList = () => {
     return (
         <div id={styles.landmarks_list}>
             <div className={styles.top_gradient} />
@@ -69,28 +71,9 @@ const LandmarkList = ({ onCategoryClick }) => {
                     key={category}
                     category={category}
                     data={data}
-                    onCategoryClick={onCategoryClick}
                 />
             ))}
             <div className={styles.bottom_gradient} />
-        </div>
-    );
-};
-
-const ExpandedLandmarkList = ({ selectedCategory }) => {
-    const selectedData = trafalgar[0].landmarks[selectedCategory];
-
-    if (!selectedData) {
-        return null;
-    }
-
-    return (
-        <div className={styles.expanded_landmarks_container}>
-            {selectedData.spots.map((spot, index) => (
-                <div className={styles.expanded_landmark} key={index}>
-                    {spot.title}
-                </div>
-            ))}
         </div>
     );
 };
@@ -175,6 +158,8 @@ function Map() {
           </div>
     );
 
+    const [selectedLandmark, setSelectedLandmark] = useState(null);
+
     return (
         <section id={styles.map_section} data-theme={theme}>
             <nav id={styles.nav_container}>
@@ -207,13 +192,15 @@ function Map() {
                     </div>
                 </div>
                 <div id={styles.landmarks_list_container}>
-                    <LandmarkList />
+                    <LandmarkContext.Provider value={{setSelectedLandmark: setSelectedLandmark}}>
+                        <LandmarkList />
+                    </LandmarkContext.Provider>
                 </div>
                 <div id={styles.bottom_gradient}/>
             </nav>
             <div id={styles.map_wrapper}>
                 <div id={styles.map_container}>
-                    <MapComponent activeCategories={activeCategories} setActiveCategories={setActiveCategories} categories={categories} />
+                    <MapComponent activeCategories={activeCategories} selectedLandmark={selectedLandmark} />
                 </div>
             </div>
         </section>
