@@ -107,7 +107,7 @@ function Map() {
         document.body.setAttribute("data-theme", theme);
     }, [theme]);
 
-    const categories = ['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators'];
+    const categories = ['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_and_culture', 'bike_racks', 'study_spots', 'washrooms', 'elevators'];
     const [activeCategories, setActiveCategories] = useState(categories);
 
     const toggleCategory = (category) => {
