@@ -90,7 +90,7 @@ function Map() {
         document.body.setAttribute("data-theme", theme);
     }, [theme]);
 
-    const categories = ['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_culture', 'bike_racks', 'studyspot', 'washrooms', 'elevators'];
+    const categories = ['food', 'parking', 'bus_stops', 'recreation', 'offices', 'arts_and_culture', 'bike_racks', 'study_spots', 'washrooms', 'elevators'];
     const [activeCategories, setActiveCategories] = useState(categories);
 
     const toggleCategory = (category) => {
@@ -121,7 +121,7 @@ function Map() {
                     onChange={() => toggleCategory(category)}
                     style={{ marginRight: '8px' }}
                   />
-                  {category}
+                  {category.charAt(0).toUpperCase() + category.slice(1).replace(/_/g, ' ')}
                 </label>
               ))}
             </div>
@@ -179,8 +179,8 @@ function Map() {
                 <div id={styles.options}>
                     <div className={styles.option}>
                         <label>Landmarks:</label>
-                        <Popover content={content} title="Filter Categories" trigger="click">
-                            <Button className={styles.option}>Selected</Button>
+                        <Popover content={content} title="Landmark Categories" trigger="click">
+                            <Button className={styles.option}>{activeCategories.length} selected</Button>
                         </Popover>
                     </div>
                     <div className={styles.option}>

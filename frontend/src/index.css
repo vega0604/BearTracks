@@ -17,15 +17,6 @@ body {
   -webkit-font-smoothing: antialiased !important;
 }
 
-.ant-btn div {
-  display: none !important;
-}
-
-.ant-btn {
-  all: unset;
-}
-
-
 * {
   font-family: "Geist", sans-serif;
 }
@@ -107,4 +98,64 @@ body {
   :root {
       --inline_padding: 1rem;
   }
+}
+
+
+/* || AntD overrides */
+.ant-btn div {
+  display: none!important;
+}
+
+.ant-btn {
+  font-family: Geist!important;
+  all: unset;
+  display: flex;
+  /* width: fit-content; */
+  width: 10rem!important;
+  height: 3.25rem;
+  gap: 1.25rem;
+  padding: 0.8125rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9375rem;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--light_75);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  transition: color .1s, background-color .1s;
+}
+
+.ant-btn:hover {
+  border: 1px solid var(--border)!important;
+  color: var(--light)!important;
+  background-color: var(--input_bg)!important;
+}
+
+.ant-popover-arrow {
+  border-right-color: var(--dark)!important;
+  color: var(--dark)!important;
+}
+
+.ant-popover-inner {
+  font-family: Geist!important;
+  background-color: var(--dark)!important;
+  border: 1px solid var(--border)!important;
+}
+
+.ant-popover-title {
+  font-family: Geist!important;
+  color: var(--light)!important;
+}
+
+.ant-popover-inner-content {
+  color: var(--light_75)!important;
+}
+
+.ant-popover-inner-content button {
+  color: var(--light_75)!important;
+  background-color: var(--light_5)!important;
+  border: 1px solid var(--border)!important;
 }

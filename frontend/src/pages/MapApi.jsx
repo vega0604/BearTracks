@@ -27,8 +27,8 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
 
     const initialIsDaytime = checkDayTime();
     const initialStyle = initialIsDaytime
-      ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc'
-      : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4';
+      ? 'mapbox://styles/brandynsudjito/cm639d3qa005f01s69u1k23r6'
+      : 'mapbox://styles/brandynsudjito/cm639osjg000g01s6bb3ah8e0';
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -273,8 +273,8 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
   // const toggleDayNight = () => {
   //   if (mapRef.current) {
   //     const newStyle = isDaytime
-  //       ? 'mapbox://styles/brandynsudjito/cm62z18cq000201s6hnsk58vc'
-  //       : 'mapbox://styles/brandynsudjito/cm62z10ij00dk01s25fuj06n4';
+  //       ? 'mapbox://styles/brandynsudjito/cm639d3qa005f01s69u1k23r6'
+  //       : 'mapbox://styles/brandynsudjito/cm639osjg000g01s6bb3ah8e0';
       
   //     mapRef.current.setStyle(newStyle);
   //     setIsDaytime(!isDaytime);
