@@ -160,10 +160,10 @@ function Map() {
     );
 
     const [selectedLandmark, setSelectedLandmark] = useState(null);
-
+    const [navOpened, setNavOpened] = useState(false);
     return (
         <section id={styles.map_section} data-theme={theme}>
-            <nav id={styles.nav_container}>
+            <nav id={styles.nav_container} data-opened={navOpened} tabIndex="0" onClick={(e) => e.target.focus()} onFocus={() => setNavOpened(true)} onBlur={() => setNavOpened(false)}>
                 <div id={styles.header}>
                     <div id={styles.logo}>
                         <img src={light_paw} alt="Paw icon" />

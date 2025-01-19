@@ -15,6 +15,12 @@
     gap: 5px;
 }
 
+@media (max-width: 900px) {
+    #chat_container {
+        display: none;
+    }
+}
+
 #chat_container[data-opened=true] {
 
     min-height: 15rem;

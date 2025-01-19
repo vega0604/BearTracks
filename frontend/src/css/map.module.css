@@ -18,6 +18,31 @@
   padding: 1.2rem 2rem;
 }
 
+@media (max-width: 900px) {
+  #map_section {
+    flex-flow: column-reverse nowrap;
+  }
+  #map_wrapper {
+    height: 100% !important;
+    border-radius: 0 !important;
+  }
+  #map_container {
+    height: calc(100% + 2rem) !important;
+  }
+  #nav_container {
+    height: 10rem;
+    max-width: unset;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 9999;
+    background: var(--dark);
+  }
+
+  #nav_container[data-opened=true]{
+    height: 85%;
+  }
+}
+
 #header {
   display: flex;
   width: 100%;
