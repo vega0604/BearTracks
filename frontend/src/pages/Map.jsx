@@ -88,7 +88,7 @@ const LandmarkList = ({ activeCategories, sortBy, campus }) => {
 
 function sortLandmarks(landmarks, sortBy) {
     switch (sortBy) {
-        case 'Locations':
+        case 'No. Locations':
             return landmarks.slice().sort((a, b) => b[1].spots.length - a[1].spots.length);
         case 'Name (A-Z)':
             return landmarks.slice().sort((a, b) => a[0].localeCompare(b[0]));
@@ -297,14 +297,14 @@ function Map() {
                 <div id={styles.options}>
                     <div className={styles.option}>
                         <label>Landmarks:</label>
-                        <Popover content={content} title="Landmark Categories" trigger="click">
-                            <Button className={styles.option}>{activeCategories.length} selected</Button>
+                        <Popover  className={styles.option} content={content} title="Landmark Categories" trigger="click">
+                            <Button>{activeCategories.length} selected</Button>
                         </Popover>
                     </div>
                     <div className={styles.option}>
                         <label>Sort by:</label>
-                        <Popover content={sortContent} title="Sort Options" trigger="click">
-                            <Button className={styles.option}>{sortBy}</Button> 
+                        <Popover className={styles.option} content={sortContent} title="Sort Options" trigger="click">
+                            <Button>{sortBy}</Button> 
                         </Popover>
                     </div>
                     <div id={styles.filters_container} className={styles.option}>

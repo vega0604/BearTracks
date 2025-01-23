@@ -205,6 +205,7 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  gap: 1rem;
   align-items: flex-end;
 }
 
@@ -227,7 +228,7 @@
   display: flex;
   width: fit-content;
   height: 3.25rem;
-  gap: 1.25rem;
+  gap: .5rem;
   padding: 0.8125rem 1.5rem;
   border: 1px solid var(--border);
   border-radius: 0.9375rem;
@@ -252,6 +253,10 @@
 
 #options #filters_container div img {
   opacity: 1;
+}
+
+#options #filters_container:hover {
+  cursor: not-allowed
 }
 
 /* || Landmarks */
