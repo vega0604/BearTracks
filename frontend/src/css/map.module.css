@@ -47,6 +47,11 @@
     gap: 5px;
     flex-wrap: wrap;
   }
+
+  /* TODO: remove this after filters implemented */
+  #options #filters_container {
+    display: none;
+  }
 }
 
 #header {
