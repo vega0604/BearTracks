@@ -6,16 +6,23 @@ import submit_img from '@assets/icons/submit.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { askBruno } from '@requests/AskBruno';
 import LoadingScreen from './LoadingScreen';
+import useLocalStorage from "use-local-storage";
 import bruno2d_dark from '@assets/home/bruno2d_dark.png';
 import bruno2d_light from '@assets/home/bruno2d_light.png';
 import stars from '@assets/home/stars.png';
 
 const MapComponent = ({activeCategories, selectedLandmark}) => {
+  const [theme, setTheme] = useLocalStorage("theme", "dark");
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
   const [isMapLoaded, setIsMapLoaded] = useState(false); 
   const [isDaytime, setIsDaytime] = useState(true);
+
+  useEffect(() => {
+    // setTheme("dark");
+    document.body.setAttribute("data-theme", theme);
+  }, [theme]);
 
   // Function to check if current time is between sunrise and sunset
   const checkDayTime = () => {
@@ -484,7 +491,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
       
         <div id={styles.chat_container} tabIndex={1} data-opened={chatOpened} onClick={(e) => e.target.focus()} onFocus={() => setChatOpened(true)} onBlur={() => setChatOpened(false)}>
           <img src={stars} alt="stars" id={styles.stars} />
-          <img src={bruno2d_dark} alt="Bruno" id={styles.bruno} />
+          <img src={theme === 'dark' ? bruno2d_dark : bruno2d_light} alt="Bruno" id={styles.bruno} />
           <h3>Ask Bruno</h3>
           <ul id={styles.message_history} ref={messageHistoryRef}>
             {messageHistory.map((item, i) => {

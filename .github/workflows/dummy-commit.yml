@@ -1,4 +1,4 @@
-name: Dummy commit if someone else than aleksbrsc@gmail.com
+name: Dummy commit if someone else than sebasvega4604@gmail.com
 
 on:
   push:
@@ -24,10 +24,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EMAIL: ${{ env.email }}
         run: |
-          if [ "${{ env.EMAIL }}" != "aleksbrsc@gmail.com" ]; then
+          if [ "${{ env.EMAIL }}" != "sebasvega4604@gmail.com" ]; then
             echo "Email does not match. Performing dummy commit."
             git config user.name "Sebastian Vega"
-            git config user.email "aleksbrsc@gmail.com"
+            git config user.email "sebasvega4604@gmail.com"
             echo "Dummy commit at $(date)" > dummyfile.txt
             git add dummyfile.txt
             git commit -m "Dummy commit to deploy"

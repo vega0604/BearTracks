@@ -8,7 +8,10 @@
           {
             "title": "South lot",
             "location": "Southwest side of campus",
-            "coordinates": [-79.64752783831662, 43.590450896305896],
+            "coordinates": [
+              -79.64752783831662,
+              43.590450896305896
+            ],
             "description": "Large parking lot for student vehicles. Requires a parking permit.",
             "timeslot": null,
             "state": null,
@@ -17,7 +20,10 @@
           {
             "title": "North lot",
             "location": "Northwest side of campus",
-            "coordinates": [-79.64882058921505, 43.59121723534332],
+            "coordinates": [
+              -79.64882058921505,
+              43.59121723534332
+            ],
             "description": "Large parking lot for student vehicles. Requires a parking permit.",
             "timeslot": null,
             "state": null,
@@ -26,7 +32,10 @@
           {
             "title": "Sheridan parking area",
             "location": "North of campus, next to Cineplex",
-            "coordinates": [-79.65165257014083, 43.591239763228884],
+            "coordinates": [
+              -79.65165257014083,
+              43.591239763228884
+            ],
             "description": "Large parking lot for student vehicles. Requires a parking permit. Available weekdays 6 a.m. - 6 p.m",
             "timeslot": null,
             "state": null,
@@ -41,7 +50,10 @@
           {
             "title": "Campus store (Snacks & Drinks)",
             "location": "Inside the B-Wing",
-            "coordinates": [-79.64805572931104, 43.59192307729063],
+            "coordinates": [
+              -79.64805572931104,
+              43.59192307729063
+            ],
             "description": "Variety of drinks and snacks.",
             "timeslot": "9:30 AM - 3:00 PM (Mon-Fri)",
             "state": null,
@@ -56,7 +68,10 @@
           {
             "title": "The HMC Athletic Centre",
             "location": "North end of campus",
-            "coordinates": [-79.6485831267774, 43.59214216595555],
+            "coordinates": [
+              -79.6485831267774,
+              43.59214216595555
+            ],
             "description": "Gym with fitness center, basketball courts, and a running track.",
             "timeslot": "8:00 AM - 10:00 PM (Mon-Fri)",
             "state": null,
@@ -71,7 +86,10 @@
           {
             "title": "Mississauga Transit Bus Stop",
             "location": "West corner of campus",
-            "coordinates": [-79.64987371261313, 43.59127142651994],
+            "coordinates": [
+              -79.64987371261313,
+              43.59127142651994
+            ],
             "description": "Bus stop for Mississauga Transit",
             "timeslot": null,
             "state": null,

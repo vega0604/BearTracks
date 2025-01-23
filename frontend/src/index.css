@@ -65,7 +65,7 @@ body {
 
 [data-theme='light'] {
   --primary: #013B6D;
-  --secondary: #FFD700;
+  --secondary: #ce9b00;
 
   --dark: #FFF;
   --dark_80: rgb(255, 255, 255, 0.8);

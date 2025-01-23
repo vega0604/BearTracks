@@ -89,6 +89,13 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  cursor: pointer;
+  transition: opacity .2s;
+  user-select: none;
+}
+
+#campus h2:hover {
+  opacity: .7;
 }
 
 #search_bar_container {

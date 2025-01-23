@@ -8,6 +8,7 @@ import dropdown from '@assets/icons/dropdown.svg';
 import filters from '@assets/icons/filters.svg';
 import new_tab_arrow from '@assets/icons/new_tab_arrow.svg';
 import trafalgar from '@data/trafalgar.json';
+import hmc from '@data/hmc.json';
 import { Command } from 'cmdk';
 import { Popover, Button } from "antd";
 
@@ -15,8 +16,8 @@ const LandmarkContext = createContext(null);
 
 const LandmarkCategory = ({ category, data}) => {
     const {setSelectedLandmark} = useContext(LandmarkContext);
-    const numSpots = data.spots.length;
-    const numSpotsWithLinks = data.spots.filter((spot) => spot.link).length;
+    const numSpots = data?.spots?.length || 0; 
+    const numSpotsWithLinks = data?.spots?.filter((spot) => spot.link)?.length || 0;
     const [expanded, setExpanded] = useState(false);
 
     const handleClick = () => {
@@ -50,7 +51,7 @@ const LandmarkCategory = ({ category, data}) => {
                             <div className={styles.expanded_landmark} key={index} onClick={() => setSelectedLandmark(spot)}>
                                 <p>{spot.title} <span>· {spot.location}</span></p>
                                 {spot.link && (
-                                    console.log(spot.link),
+                                    // console.log(spot.link),
                                     <a href={spot.link} target="_blank" rel="noopener noreferrer">
                                         <img src={new_tab_arrow} alt="Open in new tab" />
                                     </a>
@@ -63,28 +64,29 @@ const LandmarkCategory = ({ category, data}) => {
     );
 };
 
-const LandmarkList = ({ activeCategories, sortBy }) => {
-    const selectedLandmarks = Object.entries(trafalgar[0].landmarks)
+const LandmarkList = ({ activeCategories, sortBy, campus }) => {
+    const campusData = campus === 'Trafalgar 🍯' ? trafalgar[0] : hmc[0]; 
+    const selectedLandmarks = Object.entries(campusData.landmarks)
       .filter(([category, _]) => activeCategories.includes(category));
   
     const sortedLandmarks = sortLandmarks(selectedLandmarks, sortBy);
-  
+
     return (
-      <div id={styles.landmarks_list}>
-        <div className={styles.top_gradient} />
-        {sortedLandmarks.map(([category, data]) => (
-          <LandmarkCategory
-            key={category}
-            category={category}
-            data={data}
-          />
-        ))}
-        <div className={styles.bottom_gradient} />
-      </div>
+        <div id={styles.landmarks_list}>
+            <div className={styles.top_gradient} />
+            {sortedLandmarks.map(([category, data]) => (
+                <LandmarkCategory
+                    key={category}
+                    category={category}
+                    data={data}
+                />
+            ))}
+            <div className={styles.bottom_gradient} />
+        </div>
     );
-  };
-  
-  function sortLandmarks(landmarks, sortBy) {
+};
+
+function sortLandmarks(landmarks, sortBy) {
     switch (sortBy) {
         case 'Locations':
             return landmarks.slice().sort((a, b) => b[1].spots.length - a[1].spots.length);
@@ -95,10 +97,21 @@ const LandmarkList = ({ activeCategories, sortBy }) => {
         default:
             return landmarks;
     }
-  }
+}
 
 function Map() {
+    const [campus, setCampus] = useState('Trafalgar 🍯');
     const [sortBy, setSortBy] = useState('Locations');
+
+    const handleCampusChange = (campus) => {
+        setCampus(campus);
+        fetch(campus === 'Trafalgar 🍯' ? 'trafalgar.json' : 'hmc.json')
+          .then(response => response.json())
+          .then(data => {
+            setLandmarks(data.landmarks);
+            setSelectedLandmark(data.landmarks[0]);
+          });
+      };
 
     const handleSortChange = (e) => {
         setSortBy(e.target.value);
@@ -224,7 +237,16 @@ function Map() {
         </div>
     );
 
-    
+    function Campus({ campus, handleCampusChange }) {
+        const campuses = ['Trafalgar 🍯', 'HMC 👵'];
+      
+        return (
+          <div id={styles.campus}>
+            <h2 onClick={() => handleCampusChange(campus)}>{campus}</h2>
+          </div>
+        );
+      }
+
     const [selectedLandmark, setSelectedLandmark] = useState(null);
     const [navOpened, setNavOpened] = useState(false);
     const containerElement = useRef(null);
@@ -237,9 +259,7 @@ function Map() {
                         <img src={light_paw} alt="Paw icon" />
                         <h1>BearTracks</h1>
                     </div>
-                    <div id={styles.campus}>
-                        <h2>Trafalgar 🍯</h2>
-                    </div>
+                    <Campus campus={campus} onCampusChange={handleCampusChange}/>
                 </div>
                 <div id={styles.search_bar_container} ref={containerElement}>
                     <div id={styles.search_bar} onClick={() => setOpen(true)}>
@@ -293,14 +313,14 @@ function Map() {
                 </div>
                 <div id={styles.landmarks_list_container}>
                     <LandmarkContext.Provider value={{setSelectedLandmark: setSelectedLandmark}}>
-                        <LandmarkList activeCategories={activeCategories} sortBy={sortBy}/>
+                        <LandmarkList activeCategories={activeCategories} sortBy={sortBy} campus={campus}/>
                     </LandmarkContext.Provider>
                 </div>
                 <div id={styles.bottom_gradient} />
             </nav>
             <div id={styles.map_wrapper} tabIndex="0" onClick={(e) => e.target.focus()} onFocus={() => setNavOpened(false)}>
                 <div id={styles.map_container}>
-                    <MapComponent activeCategories={activeCategories} selectedLandmark={selectedLandmark} />
+                    <MapComponent activeCategories={activeCategories} selectedLandmark={selectedLandmark} campus={campus}/>
                 </div>
             </div>
         </section>
