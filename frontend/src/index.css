@@ -63,10 +63,15 @@ body {
   --min_width: 25rem;
 }
 
+[data-theme='dark'] {
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
 [data-theme='light'] {
+  transition:  color 0.2s ease, background-color 0.2s ease;
+
   --primary: #013B6D;
   --secondary: #ce9b00;
-
   --dark: #FFF;
   --dark_80: rgb(255, 255, 255, 0.8);
   --dark_75: rgb(255, 255, 255, 0.75);

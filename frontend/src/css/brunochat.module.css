@@ -17,6 +17,8 @@
     width: 18.5625rem;
     height: 10.375rem;
     flex-shrink: 0;
+
+    transition:  color 0.2s ease, background-color 0.2s ease;
 }
 
 #stars {
@@ -137,6 +139,7 @@
     border: 1px solid var(--border);
     background: var(--input_bg);
     color: var(--light);
+    transition:  color 0.2s ease, background-color 0.2s ease;
 }
 
 #chat_form button {
