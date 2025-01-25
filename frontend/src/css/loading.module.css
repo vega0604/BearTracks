@@ -9,7 +9,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
 }
 
 #loading_container {
@@ -19,17 +18,75 @@
     align-items: center;
     padding: 2rem;
     background-color: var(--dark);
+    animation: fadeInUp 1s ease-out;
 }
 
 #loading_logo {
-    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     height: auto;
-    padding: 0.5rem;
 }
 
-[data-theme='light'] #loading_logo {
+#loading_logo img {
+    width: 4rem;
+    height: auto;
+    padding: 0.5rem 1rem 1.125rem 0.5rem;
+    /* animation: invertAnimation 2s infinite; */
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(.5rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes invertAnimation {
+    0% {
+        filter: invert(0.75);
+    }
+    50% {
+        filter: invert(0);
+    }
+    100% {
+        filter: invert(0.75);
+    }
+}
+
+@keyframes invertAnimationLight {
+    0% {
+        filter: invert(0.75);
+    }
+    50% {
+        filter: invert(0.25);
+    }
+    100% {
+        filter: invert(0.75);
+    }
+}
+
+[data-theme='light'] #loading_logo img {
+    /* animation: invertAnimationLight 2s infinite; */
     filter: invert(0.25)!important;
 }
+
+#loading_logo h1 {
+    margin: 0;
+    color: var(--light);
+    font-family: Macondo;
+    font-size: 5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.09rem;
+}
+
 
 .lds_default {
     color: #a0a0a0;
@@ -45,6 +102,7 @@
     position: relative;
     width: 53.33px; 
     height: 53.33px; 
+    opacity: .5;
 }
 
 .lds_default div {

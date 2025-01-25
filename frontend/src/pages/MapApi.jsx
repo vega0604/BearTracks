@@ -17,7 +17,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
   const mapRef = useRef();
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
   const [isMapLoaded, setIsMapLoaded] = useState(false); 
-  const [isDaytime, setIsDaytime] = useState(true);
+  // const [isDaytime, setIsDaytime] = useState(true);
 
   useEffect(() => {
     // setTheme("dark");
@@ -51,7 +51,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
 
     // Wait for style to load before setting up interactions
     mapRef.current.on('style.load', () => {
-      console.log('Style loaded');
+      // console.log('Style loaded');
       setIsStyleLoaded(true);
       
       // Initial filter setup
@@ -59,11 +59,10 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
 
       // Log available layers
       const style = mapRef.current.getStyle();
-      console.log('Available layers:', style.layers.map(layer => layer.id));
+      // console.log('Available layers:', style.layers.map(layer => layer.id));
     });
 
     mapRef.current.on('load', () => {
-      // Remove or comment out your existing fetch code
       fetch('/data/map.geojson')
         .then(response => {
           if (!response.ok) {
@@ -72,7 +71,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
           return response.json();
         })
         .then(geojsonData => {
-          console.log('GeoJSON data loaded:', geojsonData);
+          // console.log('GeoJSON data loaded:', geojsonData);
 
           // Add IDs to features if they don't have them
           geojsonData.features = geojsonData.features.map((feature, index) => ({
@@ -121,8 +120,8 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
 
           // Add click handler for the rooms
           mapRef.current.on('click', 'room-extrusion', (e) => {
-            console.log('Click event:', e);
-            console.log('Features:', e.features);
+            // console.log('Click event:', e);
+            // console.log('Features:', e.features);
             if (e.features.length > 0) {
               e.preventDefault(); // Prevent the click from propagating
 
@@ -313,11 +312,19 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
     });
 
     const setLoadingScreen = (show) => {
-      const loadingScreen = document.querySelector('.loading-screen');
+      const loadingScreen = document.getElementById('loading_screen_container');
       if (loadingScreen) {
-        loadingScreen.style.display = show ? 'flex' : 'none';
+        loadingScreen.style.opacity = show ? '1' : '0';
+        if (!show) {
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+          }, 200);
+        } else {
+          loadingScreen.style.display = 'flex';
+        }
       }
     };
+
     return () => {
       if (mapRef.current) {
         mapRef.current.remove();
@@ -359,10 +366,10 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
       }
   
       // Debug log
-      console.log('Available layers:', layers);
+      // console.log('Available layers:', layers);
       
     } catch (error) {
-      console.error('Error setting filter:', error);
+      // console.error('Error setting filter:', error);
     }
   };
   
@@ -468,7 +475,9 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
   }, [messageHistory])
   return (
     <div>
-      {isMapLoaded === false && <LoadingScreen />}
+      <div id="loading_screen_container" style={{ transition: 'opacity 0.2s', opacity: 1, position: 'fixed', zIndex: 9999 }}>
+        <LoadingScreen />
+      </div>
       {/* Add toggle button for testing */}
       {/* <button
         onClick={toggleDayNight}

@@ -11,6 +11,7 @@ import trafalgar from '@data/trafalgar.json';
 import hmc from '@data/hmc.json';
 import { Command } from 'cmdk';
 import { Popover, Button } from "antd";
+import { use } from 'react';
 
 const LandmarkContext = createContext(null);
 
@@ -104,19 +105,17 @@ function Map() {
     const [sortBy, setSortBy] = useState('Locations');
 
     const handleCampusChange = (campus) => {
+        console.log(campus)
         setCampus(campus);
-        fetch(campus === 'Trafalgar 🍯' ? 'trafalgar.json' : 'hmc.json')
-          .then(response => response.json())
-          .then(data => {
-            setLandmarks(data.landmarks);
-            setSelectedLandmark(data.landmarks[0]);
-          });
-      };
+        const data = campus === 'Trafalgar 🍯' ? trafalgar : hmc;
+        const firstLandmark = data[0].landmarks.parking.spots[0];
+        // setSelectedLandmark(firstLandmark);
+    };
 
     const handleSortChange = (e) => {
         setSortBy(e.target.value);
     };
-
+    
     const sortOptions = [
         { value: 'Locations', label: 'Number of Locations' },
         { value: 'Name (A-Z)', label: 'Name (A-Z)' },
@@ -238,11 +237,19 @@ function Map() {
     );
 
     function Campus({ campus, handleCampusChange }) {
-        const campuses = ['Trafalgar 🍯', 'HMC 👵'];
+        const campuses = ['Trafalgar 🍯', 'Hazel McCallion 👵'];
+        
+        const handleCampusClick = () => {
+            console.log("handleCampusChange called with:", campus);
+            const newCampus = campuses[(campuses.indexOf(campus) + 1) % campuses.length];
+            handleCampusChange(newCampus);
+        };
       
         return (
-          <div id={styles.campus}>
-            <h2 onClick={() => handleCampusChange(campus)}>{campus}</h2>
+          <div id={styles.campus} onClick={handleCampusClick}>
+            <h2 style={{ color: campus === campuses[0] ? 'var(--secondary)' : 'var(--primary)' }}>
+              {campus}
+            </h2>
           </div>
         );
       }
@@ -259,7 +266,7 @@ function Map() {
                         <img src={light_paw} alt="Paw icon" />
                         <h1>BearTracks</h1>
                     </div>
-                    <Campus campus={campus} onCampusChange={handleCampusChange}/>
+                    <Campus campus={campus} handleCampusChange={handleCampusChange}/>
                 </div>
                 <div id={styles.search_bar_container} ref={containerElement}>
                     <div id={styles.search_bar} onClick={() => setOpen(true)}>
