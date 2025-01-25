@@ -117,6 +117,7 @@ body {
   display: flex;
   /* width: fit-content; */
   width: 10rem!important;
+  /* max-width: fit-content; */
   height: 3.25rem;
   gap: 1.25rem;
   padding: 0.8125rem 1.5rem;
@@ -167,6 +168,14 @@ body {
 
 .ant-popover-arrow::before {
   background-color: var(--border)!important;
+}
+
+@media (max-width: 400px) {
+  .ant-btn {
+    /* width: 100%!important; */
+    max-width: unset;
+    justify-content: center!important;
+  }
 }
 
 /* || MapBox popup styles */

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '@css/brunochat.module.css';
+import loadingStyles from '@css/loading.module.css';
 import mapboxgl from 'mapbox-gl';
 import SunCalc from 'suncalc';
 import submit_img from '@assets/icons/submit.svg';
@@ -312,7 +313,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
     });
 
     const setLoadingScreen = (show) => {
-      const loadingScreen = document.getElementById('loading_screen_container');
+      const loadingScreen = document.getElementById(loadingStyles.loading_screen_container);
       if (loadingScreen) {
         loadingScreen.style.opacity = show ? '1' : '0';
         if (!show) {
@@ -475,7 +476,7 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
   }, [messageHistory])
   return (
     <div>
-      <div id="loading_screen_container" style={{ transition: 'opacity 0.2s', opacity: 1, position: 'fixed', zIndex: 9999 }}>
+      <div id={loadingStyles.loading_screen_container}>
         <LoadingScreen />
       </div>
       {/* Add toggle button for testing */}

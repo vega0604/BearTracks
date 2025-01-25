@@ -103,6 +103,14 @@ function Map() {
     const [campus, setCampus] = useState('Trafalgar 🍯');
     const [sortBy, setSortBy] = useState('Locations');
 
+    // refocus on the nav container when the page loads
+    useEffect(() => {
+        const navContainer = document.getElementById(styles.nav_container);
+        if (navContainer) {
+            navContainer.focus();
+        }
+    }, []);
+
     const handleCampusChange = (campus) => {
         console.log(campus)
         setCampus(campus);
@@ -268,7 +276,7 @@ function Map() {
                     <Campus campus={campus} handleCampusChange={handleCampusChange}/>
                 </div>
                 <div id={styles.search_bar_container} ref={containerElement}>
-                    <div id={styles.search_bar} onClick={() => setOpen(true)}>
+                    <div id={styles.search_bar} tabIndex="0" onClick={() => setOpen(true)}>
                         {open ? '': "Search..."}
                         <Command.Dialog
                             open={open}
@@ -288,7 +296,7 @@ function Map() {
                                     {theme == 'light'? '🌑 ':'🌞 '}
                                     Toggle Theme
                                 </Command.Item>
-                                { filteredLandmarks.map((landmark, i) => (
+                                {filteredLandmarks.map((landmark, i) => (
                                     <Command.Item key={i} className={styles.cmdk_list_item} onSelect={() => setSelectedLandmark(landmark)}>
                                         {landmark.title}
 
@@ -314,7 +322,7 @@ function Map() {
                         </Popover>
                     </div>
                     <div id={styles.filters_container} className={styles.option}>
-                        <div><img src={filters} alt="filters icon" /> Filters</div>
+                        <div><img src={filters} alt="filters icon" />Filters</div>
                     </div>
                 </div>
                 <div id={styles.landmarks_list_container}>

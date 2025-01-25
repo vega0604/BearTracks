@@ -1,3 +1,10 @@
+#loading_screen_container {
+    transition: opacity 0.2s;
+    opacity: 1;
+    position: fixed;
+    z-index: 9999;
+}
+
 #loading_screen {
     position: fixed;
     top: 0;
