@@ -165,6 +165,10 @@ body {
   border: 1px solid var(--border)!important;
 }
 
+.ant-popover-arrow::before {
+  background-color: var(--border)!important;
+}
+
 /* || MapBox popup styles */
 .custom-popup .mapboxgl-popup-content {
   border-radius: 8px;

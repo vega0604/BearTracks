@@ -1,17 +1,16 @@
 import { useState, useEffect, useContext, createContext, useRef } from 'react';
-import useLocalStorage from "use-local-storage";
+import trafalgar from '@data/trafalgar.json';
+import hmc from '@data/hmc.json';
 import styles from '@css/map.module.css';
+import useLocalStorage from "use-local-storage";
 import MapComponent from "@pages/MapApi";
 import light_paw from '@assets/logos/light_paw.svg';
 import search_icon from '@assets/icons/search.svg';
 import dropdown from '@assets/icons/dropdown.svg';
 import filters from '@assets/icons/filters.svg';
 import new_tab_arrow from '@assets/icons/new_tab_arrow.svg';
-import trafalgar from '@data/trafalgar.json';
-import hmc from '@data/hmc.json';
 import { Command } from 'cmdk';
 import { Popover, Button } from "antd";
-import { use } from 'react';
 
 const LandmarkContext = createContext(null);
 
@@ -237,7 +236,7 @@ function Map() {
     );
 
     function Campus({ campus, handleCampusChange }) {
-        const campuses = ['Trafalgar 🍯', 'Hazel McCallion 👵'];
+        const campuses = ['Trafalgar 🍯', 'Hazel McCallion 🏙️'];
         
         const handleCampusClick = () => {
             console.log("handleCampusChange called with:", campus);
