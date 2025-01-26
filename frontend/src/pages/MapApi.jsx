@@ -12,7 +12,7 @@ import bruno2d_dark from '@assets/home/bruno2d_dark.png';
 import bruno2d_light from '@assets/home/bruno2d_light.png';
 import stars from '@assets/home/stars.png';
 
-const MapComponent = ({activeCategories, selectedLandmark}) => {
+const MapComponent = ({activeCategories, selectedLandmark, campus}) => {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   const mapContainerRef = useRef();
   const mapRef = useRef();
@@ -57,7 +57,6 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
       
       // Initial filter setup
       updateLayerFilter();
-
       // Log available layers
       const style = mapRef.current.getStyle();
       // console.log('Available layers:', style.layers.map(layer => layer.id));
@@ -374,7 +373,24 @@ const MapComponent = ({activeCategories, selectedLandmark}) => {
     }
   };
   
+  // Fly to campus when campus changes
+  useEffect(() => {
+    if (mapRef.current) {
+        const campusCoordinates = {
+            'Trafalgar 🍯': [-79.700, 43.468],
+            'Hazel McCallion 🏙️': [-79.648, 43.591] 
+        };
 
+        mapRef.current.flyTo({
+            center: campusCoordinates[campus],
+            zoom: 16.5,
+            duration: 2000 //speed of the fly
+        });
+    }
+  }, [campus]); 
+  
+
+  // Toggle between day and night styles
   // const toggleDayNight = () => {
   //   if (mapRef.current) {
   //     const newStyle = isDaytime
