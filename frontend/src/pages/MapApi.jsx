@@ -384,7 +384,7 @@ const MapComponent = ({activeCategories, selectedLandmark, campus}) => {
         mapRef.current.flyTo({
             center: campusCoordinates[campus],
             zoom: 16.5,
-            duration: 4000, //speed of the fly
+            duration: 2000, //speed of the fly
             curve: 0.5,     // Adjust the animation curve
             speed: 1.2,      // Slower speed
             essential: true, // Ensures the animation completes
