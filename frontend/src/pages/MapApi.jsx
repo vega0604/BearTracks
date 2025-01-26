@@ -384,7 +384,12 @@ const MapComponent = ({activeCategories, selectedLandmark, campus}) => {
         mapRef.current.flyTo({
             center: campusCoordinates[campus],
             zoom: 16.5,
-            duration: 2000 //speed of the fly
+            duration: 4000, //speed of the fly
+            curve: 0.5,     // Adjust the animation curve
+            speed: 1.2,      // Slower speed
+            essential: true, // Ensures the animation completes
+            minZoom: 14,    // Prevent zooming out too far
+            maxZoom: 19     // Prevent zooming in too far
         });
     }
   }, [campus]); 
@@ -410,6 +415,7 @@ const MapComponent = ({activeCategories, selectedLandmark, campus}) => {
   ])
 
   useEffect(() => {
+    console.log(selectedLandmark);
       if (selectedLandmark && mapRef.current) {
       const coordinates = [selectedLandmark.coordinates[1], selectedLandmark.coordinates[0]]; 
       
