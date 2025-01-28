@@ -309,6 +309,70 @@ const MapComponent = ({activeCategories, selectedLandmark, campus}) => {
         }
       });
 
+      mapRef.current.on('click', (event) => {
+        if (mapRef.current.getLayer('sheridan-davis')) {  // Check if layer exists
+          const features = mapRef.current.queryRenderedFeatures(event.point, {
+            layers: ['sheridan-davis']
+          });
+        
+          if (!features.length) return;
+        
+          const feature = features[0];
+          const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).replace(/_/g, ' ');
+
+          const popupContent =`
+          <div style="font-family: Geist, sans-serif; padding: 10px; background-color: var(--primary); color: var(--light); border-radius: 4px;">
+            <h3 style="font-family: Geist; color: var(--dark); margin: 0 0 8px 0; font-size: 1.25rem;">
+              ${feature.properties.title || 'Landmark'}
+            </h3>
+            
+            <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
+              <strong>Location:</strong> ${feature.properties.location || 'N/A'}
+            </p>
+
+            <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
+              <strong>Category:</strong> ${capitalize(feature.properties.category) || 'N/A'}
+            </p>
+            
+            ${feature.properties.description ? `
+              <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
+                <strong>Description:</strong> ${feature.properties.description}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.timeslot ? `
+              <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
+                <strong>Hours:</strong> ${feature.properties.timeslot}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.state ? `
+              <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
+                <strong>State:</strong> ${feature.properties.state}
+              </p>
+            ` : ''}
+            
+            ${feature.properties.link ? `
+              <p style="color: var(--dark_75); margin: 4px 0; font-size: 14px;">
+                <a href="${feature.properties.link}" target="_blank" style="color: #0066cc; text-decoration: none;">
+                  More Information →
+                </a>
+              </p>
+            ` : ''}
+          </div>
+        `;
+      
+        
+          new mapboxgl.Popup({
+            offset: [0, -15],
+            maxWidth: '300px',
+            className: 'custom-popup'
+          })
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML(popupContent)
+            .addTo(mapRef.current);
+        }
+      });
     });
 
     const setLoadingScreen = (show) => {
@@ -365,6 +429,14 @@ const MapComponent = ({activeCategories, selectedLandmark, campus}) => {
         ]);
       }
   
+      if (layers.includes('sheridan-davis')) {
+        mapRef.current.setFilter('sheridan-davis', [
+          'in',
+          ['get', 'category'],
+          ['literal', activeCategories]
+        ]);
+      }
+
       // Debug log
       // console.log('Available layers:', layers);
       
