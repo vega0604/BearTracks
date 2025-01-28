@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, createContext, useRef } from 'react';
 import trafalgar from '@data/trafalgar.json';
 import hmc from '@data/hmc.json';
+import davis from '@data/davis.json';
 import styles from '@css/map.module.css';
 import useLocalStorage from "use-local-storage";
 import MapComponent from "@pages/MapApi";
@@ -65,7 +66,7 @@ const LandmarkCategory = ({ category, data}) => {
 };
 
 const LandmarkList = ({ activeCategories, sortBy, campus }) => {
-    const campusData = campus === 'Trafalgar 🍯' ? trafalgar[0] : hmc[0]; 
+    const campusData = campus === 'Trafalgar 🍯' ? trafalgar[0] : campus === 'Hazel McCallion 🏙️' ? hmc[0] : davis[0];
     const selectedLandmarks = Object.entries(campusData.landmarks)
       .filter(([category, _]) => activeCategories.includes(category));
   
@@ -114,7 +115,7 @@ function Map() {
     const handleCampusChange = (campus) => {
         console.log(campus)
         setCampus(campus);
-        const data = campus === 'Trafalgar 🍯' ? trafalgar : hmc;
+        const data = campus === 'Trafalgar 🍯' ? trafalgar : campus === 'Hazel McCallion 🏙️' ? hmc : davis;
         const firstLandmark = data[0].landmarks.parking.spots[0];
         // setSelectedLandmark(firstLandmark);
     };
@@ -244,17 +245,17 @@ function Map() {
     );
 
     function Campus({ campus, handleCampusChange }) {
-        const campuses = ['Trafalgar 🍯', 'Hazel McCallion 🏙️'];
+        const campuses = ['Trafalgar 🍯', 'Hazel McCallion 🏙️', 'Davis ⚒️'];
         
         const handleCampusClick = () => {
-            console.log("handleCampusChange called with:", campus);
+            // console.log("handleCampusChange called with: ", campus);
             const newCampus = campuses[(campuses.indexOf(campus) + 1) % campuses.length];
             handleCampusChange(newCampus);
         };
       
         return (
           <div id={styles.campus} onClick={handleCampusClick}>
-            <h2 style={{ color: campus === campuses[0] ? 'var(--secondary)' : 'var(--primary)' }}>
+            <h2 style={{ color: campus === campuses[0] ? 'var(--secondary)' : campus === campuses[1] ? 'var(--primary)' : '#C4A484' }}>
               {campus}
             </h2>
           </div>

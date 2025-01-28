@@ -1,0 +1,179 @@
+[
+  {
+    "landmarks": {
+      "parking": {
+        "color": "#C6FCFF",
+        "emoji": "🅿️",
+        "spots": [
+          {
+            "title": "Lot 1",
+            "location": "East side of campus",
+            "coordinates": [
+              43.655719238782815, -79.73662893327015
+            ],
+            "description": "Large parking lot for student vehicles. Requires a parking permit.",
+            "timeslot": null,
+            "state": null,
+            "link": null
+          },
+          {
+            "title": "Lot 2",
+            "location": "Southeast side of campus",
+            "coordinates": [
+              43.65562028871866, -79.73740691820596
+            ],
+            "description": "Small parking lot for student vehicles. Requires a parking permit.",
+            "timeslot": null,
+            "state": null,
+            "link": null
+          },
+          {
+            "title": "Lot 3 (Visitors)",
+            "location": "Southeast side of campus",
+            "coordinates": [
+              43.65465260507408, -79.73739489634843
+            ],
+            "description": "Large parking lot for student vehicles. Requires a parking permit.",
+            "timeslot": null,
+            "state": null,
+            "link": null
+          },
+          {
+            "title": "Lot 4 (Staff)",
+            "location": "South side of campus",
+            "coordinates": [
+              43.655200265615434, -79.73982220625679
+            ],
+            "description": "Large parking lot for student vehicles. Requires a parking permit.",
+            "timeslot": null,
+            "state": null,
+            "link": null
+          },
+          {
+            "title": "Lot 5",
+            "location": "Southwest side of campus",
+            "coordinates": [
+              43.655784285748716, -79.74095409013088
+            ],
+            "description": "Large parking lot for student vehicles. Requires a parking permit.",
+            "timeslot": null,
+            "state": null,
+            "link": null
+          },
+          {
+            "title": "Lot 6",
+            "location": "West side of campus",
+            "coordinates": [
+              43.65628861561726, -79.74182598176901
+            ],
+            "description": "Large parking lot for student vehicles. Requires a parking permit.",
+            "timeslot": null,
+            "state": null,
+            "link": null
+          }
+        ]
+      },
+      "food": {
+        "color": "#F2E6DC",
+        "emoji": "🍽️",
+        "spots": [
+          {
+            "title": "Bruin Coffee House",
+            "location": "Student Union Centre",
+            "coordinates": [
+              43.65662036000996, -79.73992492772976
+            ],
+            "description": "Coffee and pastry shop.",
+            "timeslot": "8:00 AM - 7:00 PM (Tue-Sun), monday closes @ 5:00 PM",
+            "state": null,
+            "link": null
+          },
+          {
+            "title": "The Den",
+            "location": "B-Wing",
+            "coordinates": [
+              43.65616308020318, -79.73970449390058
+            ],
+            "description": "Bar",
+            "timeslot": "7:00 AM - 10:00 PM (Mon-Fri)",
+            "state": null,
+            "link": null
+          },
+          {
+            "title": "Tim Hortons",
+            "location": "C-Wing",
+            "coordinates": [
+              43.65662086526591, -79.7378490228138
+            ],
+            "description": "Coffee, donuts, and other snacks.",
+            "timeslot": "9:00 AM - 5:00 PM (Mon-Fri)",
+            "state": null,
+            "link": "https://boosterjuice.com/collections/smoothies"
+          },
+          {
+            "title": "Booster Juice",
+            "location": "B-Wing",
+            "coordinates": [
+              43.65605736970222, -79.73934371417276
+            ],
+            "description": "Bar",
+            "timeslot": "9:00 AM - 5:00 PM (Mon-Fri)",
+            "state": null,
+            "link": "https://boosterjuice.com/collections/smoothies"
+          }
+        ]
+      },
+      "recreation": {
+        "color": "#f0c05a",
+        "emoji": "🏀",
+        "spots": [
+          {
+            "title": "Better Bruins Gym",
+            "location": "C-Wing",
+            "coordinates": [
+              43.65659408998031, -79.73758206473757
+            ],
+            "description": "Gymnastics centre",
+            "timeslot": "8:00 AM - 10:00 PM (Mon-Fri)",
+            "state": null,
+            "link": null
+          }
+        ]
+      },
+      "bus_stops": {
+        "color": "#7fffd4",
+        "emoji": "🚌",
+        "spots": [
+          {
+            "title": "Bus Terminal",
+            "location": "In-between Lot 5-6",
+            "coordinates": [
+              43.655921356415924, -79.74164801673108
+            ],
+            "description": "Bus stop for Mississauga Transit",
+            "timeslot": null,
+            "state": null,
+            "link": "https://maps.app.goo.gl/e2wyHR3kRoXSrJiL7"
+          }
+        ]
+      },
+      "bike_racks": {
+        "color": "#006400",
+        "emoji": "🚲",
+        "spots": [
+          {
+            "title": "Bike Hub (P7)",
+            "location": "Outside A-Wing entrance",
+            "coordinates": [
+              43.65538797116933, -79.74130217557003
+            ],
+            "description": "Secure bike racks for students and staff.",
+            "timeslot": null,
+            "state": null,
+            "link": null
+          }
+        ]
+      }
+    }
+  }
+]

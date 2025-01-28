@@ -378,7 +378,8 @@ const MapComponent = ({activeCategories, selectedLandmark, campus}) => {
     if (mapRef.current) {
         const campusCoordinates = {
             'Trafalgar 🍯': [-79.700, 43.468],
-            'Hazel McCallion 🏙️': [-79.648, 43.591] 
+            'Hazel McCallion 🏙️': [-79.648, 43.591],
+            'Davis ⚒️': [-79.7387310774142, 43.6559897675037]
         };
 
         mapRef.current.flyTo({
