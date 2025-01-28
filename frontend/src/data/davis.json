@@ -44,7 +44,7 @@
             "coordinates": [
               43.655200265615434, -79.73982220625679
             ],
-            "description": "Large parking lot for student vehicles. Requires a parking permit.",
+            "description": "Medium parking lot for student vehicles. Requires a parking permit.",
             "timeslot": null,
             "state": null,
             "link": null
@@ -55,7 +55,7 @@
             "coordinates": [
               43.655784285748716, -79.74095409013088
             ],
-            "description": "Large parking lot for student vehicles. Requires a parking permit.",
+            "description": "Medium parking lot for student vehicles. Requires a parking permit.",
             "timeslot": null,
             "state": null,
             "link": null
@@ -67,6 +67,17 @@
               43.65628861561726, -79.74182598176901
             ],
             "description": "Large parking lot for student vehicles. Requires a parking permit.",
+            "timeslot": null,
+            "state": null,
+            "link": null
+          },
+          {
+            "title": "Overflow Parking",
+            "location": "South side of campus",
+            "coordinates": [
+              43.653647606525496, -79.73808671419711
+            ],
+            "description": "Extra parking lot for student vehicles. Requires a parking permit.",
             "timeslot": null,
             "state": null,
             "link": null
