@@ -141,7 +141,18 @@
                         "description": "Cafeteria with a variety of options, including Harvey's, Subway, Pizza Pizza, Thai Express, and Tim Hortons.",
                         "timeslot": "8:00 AM - 7:00 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/trafalgar-campus-cafeteria"
+                    },
+                    {
+                        "title": "Brew'n Coffee",
+                        "location": "SCAET building (1st floor)",
+                        "coordinates": [
+                            43.468773, -79.698493
+                        ],
+                        "description": "Snacks and coffee shop.",
+                        "timeslot": "8:00 AM - 3:00 PM (Mon-Fri)",
+                        "state": null,
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/scaet-study-area"
                     },
                     {
                         "title": "Tim Hortons",
@@ -165,7 +176,7 @@
                         "description": "Trafalgar's on-campus pub, run by the Sheridan Student Union.",
                         "timeslot": "11:00 AM - 8:00 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/marquee"
                     },
                     {
                         "title": "Harvey's",
@@ -233,7 +244,7 @@
                         "description": "Cozy nook for coffee and snacks.",
                         "timeslot": "7:30 AM - 5:00 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/coffee-loft"
                     },
                     {
                         "title": "Sheridan Bookstore (Snacks & Drinks)",
@@ -245,7 +256,7 @@
                         "description": "Variety of drinks and snacks.",
                         "timeslot": "8:30 AM - 4:30 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/bookstore"
                     }
                 ]
             },
@@ -262,18 +273,18 @@
                         "description": "Gym with fitness center, basketball courts, and a running track.",
                         "timeslot": "7:00 AM - 10:00 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/gym-ac"
                     },
                     {
                         "title": "Bruins' Field",
-                        "location": "Outdoor field for soccer and other sports",
+                        "location": "Outdoor field for sports",
                         "coordinates": [
                             43.466972, -79.703745
                         ],
                         "description": "Available for student use.",
                         "timeslot": null,
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/field"
                     },
                     {
                         "title": "Fitness Studio",
@@ -285,6 +296,39 @@
                         "timeslot": null,
                         "state": null,
                         "link": null
+                    },
+                    {
+                        "title": "Arcade Game Machine",
+                        "location": "Near the main SCAET entrance",
+                        "coordinates": [
+                            43.468945, -79.698404
+                        ],
+                        "description": "Arcade game machine for up tp 4 students to play.",
+                        "timeslot": null,
+                        "state": null,
+                        "link": null
+                    },
+                    {
+                        "title": "Board Games",
+                        "location": "C-Wing, Library",
+                        "coordinates": [
+                            43.468356, -79.699179
+                        ],
+                        "description": "Board games available for students to play. You can rent some to take home!",
+                        "timeslot": null,
+                        "state": null,
+                        "link": null
+                    },
+                    {
+                        "title": "eSports lounge",
+                        "location": "Athletic Centre, 2nd floor",
+                        "coordinates": [
+                            43.467565, -79.703337
+                        ],
+                        "description": "A TV set with gaming consoles and games for students to play.",
+                        "timeslot": null,
+                        "state": null,
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/esports-lounge"
                     }
                 ]
             },
@@ -346,7 +390,7 @@
                         "description": "Offers applied research and development services.",
                         "timeslot": null,
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/centre-for-applied-ai"
                     },
                     {
                         "title": "SSU Customer Service",
@@ -357,7 +401,7 @@
                         "description": "Have questions about the SSU services? Our Customer Service Representatives will welcome you and answer any SSU service questions you may have.",
                         "timeslot": "9:00 AM - 5:00 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/ssu---clubsroom"
                     }
                 ]
             },
@@ -374,7 +418,7 @@
                         "description": "Gallery showcasing student and faculty artwork.",
                         "timeslot": "10:00 AM - 4:00 PM (Tues-Sat)",
                         "state": null,
-                        "link": null
+                        "link": "https://www.sheridancollege.ca/about/campus-locations/trafalgar/gallery"
                     },
                     {
                         "title": "Theatre Sheridan",
@@ -385,7 +429,7 @@
                         "description": "Performance venue for theatre productions.",
                         "timeslot": null,
                         "state": null,
-                        "link": null
+                        "link": "https://www.sheridancollege.ca/theatre"
                     }
                 ]
             },
@@ -394,23 +438,23 @@
                 "emoji": "🚌",
                 "spots": [
                     {
-                        "title": "Oakville Transit Bus Stop (B-Wing)",
-                        "location": "In front of B-Wing",
+                        "title": "Sheridan College bus station",
+                        "location": "Right outside the main entrance (SCAET-Wing)",
                         "coordinates": [
-                            43.469721, -79.697498
+                            43.469921, -79.697543
                         ],
-                        "description": "Oakville Transit bus stop for routes 19, 24, and 4.",
+                        "description": "Sheridan College bus station. Be careful with choosing the right direction.",
                         "timeslot": null,
                         "state": null,
                         "link": "https://www.oakvilletransit.ca/"
                     },
                     {
-                        "title": "GO Bus Stop (Trafalgar & Dundas)",
-                        "location": "Walking distance from campus, at Trafalgar Rd & Dundas St",
+                        "title": "Sheridan College bus station",
+                        "location": "Right outside the main entrance (SCAET-Wing)",
                         "coordinates": [
-                            43.469721, -79.697498
+                            43.469542, -79.697484
                         ],
-                        "description": "GO Transit bus stop for routes 18 and 21.",
+                        "description": "Sheridan College bus station. Be careful with choosing the right direction.",
                         "timeslot": null,
                         "state": null,
                         "link": "https://www.gotransit.com/"
@@ -480,7 +524,7 @@
                         "description": "Library, computer labs, and study spaces. Group tables, couches, computers, and printers available. Quiet study room in C148b and bookable glass rooms.",
                         "timeslot": "8:00 AM - 10:00 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/learning-commons-c"
                     },
                     {
                         "title": "Library Cubicles",
@@ -491,7 +535,7 @@
                         "description": "Quiet cubicles for individual study.",
                         "timeslot": "8:30 AM - 8:00 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/new-library"
                     },
                     {
                         "title": "Quiet Study Room (Library)",
@@ -502,7 +546,7 @@
                         "description": "Quiet room for focused study.",
                         "timeslot": "8:30 AM - 8:00 PM (Mon-Fri)",
                         "state": null,
-                        "link": null
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/new-library"
                     },
                     {
                         "title": "Coffee Loft",
@@ -532,7 +576,29 @@
                         "coordinates": [
                             43.468806, -79.698639
                         ],
-                        "description": "Tables and chairs in the corners of the halls and booths in front of Second Cup.",
+                        "description": "Tables and chairs in the corners of the halls and booths in front of Brew'N Coffee.",
+                        "timeslot": null,
+                        "state": null,
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/scaet-study-area"
+                    },
+                    {
+                        "title": "Muskoka chairs",
+                        "location": "Center path of campus, outside the B building, along the river",
+                        "coordinates": [
+                            43.468121, -79.700178
+                        ],
+                        "description": "Lounge chairs outside that are nice to study in in summer.",
+                        "timeslot": null,
+                        "state": null,
+                        "link": "https://virtualtour.sheridancollege.ca/sheridan/trafalgar-road-campus-tour/outdoor-sitting-area-muskoka-chairs-stream"
+                    },
+                    {
+                        "title": "G-Wing unused classrooms",
+                        "location": "G-Wing, all floors",
+                        "coordinates": [
+                            43.467253, -79.699895
+                        ],
+                        "description": "Not all classes are in session, so some classrooms are empty and available for studying.",
                         "timeslot": null,
                         "state": null,
                         "link": null
