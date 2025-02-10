@@ -345,12 +345,13 @@
 }
 
 #landmarks_list::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background-color: var(--scrollbar);
   border-radius: 4px;
+  transition: background-color .2s ease;
 }
 
 #landmarks_list::-webkit-scrollbar-thumb:hover {
-  background: var(--primary_50)
+  background-color: var(--scrollbar_hover)
 }
 
 #landmarks_list .top_gradient,

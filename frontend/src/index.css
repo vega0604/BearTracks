@@ -54,6 +54,8 @@ body {
 
   --border: #595959;
   --input_bg: #232323;
+  --scrollbar: #2c2c2c;
+  --scrollbar_hover: #232323;
 
   --top-gradient: linear-gradient(180deg, #1a1a1a 0%, #1a1a1a00 100%) !important;
   --bottom-gradient: linear-gradient(0deg, #1a1a1a 0%, #1a1a1a00 100%) !important;
@@ -90,6 +92,8 @@ body {
 
   --border: #B9B9B9;
   --input_bg: #F5F5F5;
+  --scrollbar: #e6e6e6;
+  --scrollbar_hover: #eaeaea;
 
   --top-gradient: linear-gradient(180deg, #fff 0%, #ffffff00 100%) !important;
   --bottom-gradient: linear-gradient(0deg, #fff 0%, #ffffff00 100%) !important;
