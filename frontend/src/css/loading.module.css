@@ -38,9 +38,9 @@
 }
 
 #loading_logo img {
-    width: 4rem;
+    width: 20rem;
     height: auto;
-    padding: 0.5rem 0 1.125rem 0;
+    /* padding: 0.5rem 0 1.125rem 0; */
     /* animation: invertAnimation 2s infinite; */
 }
 
@@ -84,7 +84,7 @@
     filter: invert(0.25)!important;
 }
 
-#loading_logo h1 {
+/* #loading_logo h1 {
     margin: 0;
     color: var(--light);
     font-family: Macondo;
@@ -93,7 +93,7 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.09rem;
-}
+} */
 
 
 .lds_default {
@@ -210,11 +210,12 @@
 
 /* || MOBILE */
 @media (max-width: 768px) {
-    #loading_logo h1 {
+    /* #loading_logo h1 {
         font-size: 2.5rem;
-    }
+    } */
 
     #loading_logo img {
-        width: 2.5rem;
+        width: 12rem;
+        margin-bottom: 1rem;
     }
 }
